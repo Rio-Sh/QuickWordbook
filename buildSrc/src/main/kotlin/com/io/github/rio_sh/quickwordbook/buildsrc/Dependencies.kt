@@ -13,7 +13,7 @@ object Libs {
     }
 
     object Kotlin {
-        private const val version = "1.6.10"
+        private const val version = "1.6.0"
         const val stdlib = "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version"
         const val gradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:$version"
         const val extensions = "org.jetbrains.kotlin:kotlin-android-extensions:$version"
@@ -54,6 +54,7 @@ object Libs {
             const val uiUtil = "androidx.compose.ui:ui-util:$version"
             const val uiTest = "androidx.compose.ui:ui-test-junit4:$version"
             const val uiTestManifest = "androidx.compose.ui:ui-test-manifest:$version"
+            const val material3 = "androidx.compose.material3:material3:1.0.0-alpha02"
         }
 
         object ConstraintLayout {
