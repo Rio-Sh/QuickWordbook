@@ -3,6 +3,8 @@ import com.io.github.rio_sh.quickwordbook.buildsrc.Libs
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -15,6 +17,7 @@ android {
         versionName '1.0'
         vectorDrawables.useSupportLibrary true
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        buildConfigField 'String', 'API_URL', '"https://script.google.com/macros/s/AKfycbysAZbFYMW-fF4KWVMOcSLIjSKJTOvg_hHVKhVjie711rwpA8tr92cjSMASqw4N2cuVQw/"'
     }
 
     signingConfigs {
@@ -23,6 +26,7 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            buildConfigField 'String', 'API_URL', '"https://script.google.com/macros/s/AKfycbysAZbFYMW-fF4KWVMOcSLIjSKJTOvg_hHVKhVjie711rwpA8tr92cjSMASqw4N2cuVQw/"'
         }
 
         release {
@@ -39,7 +43,7 @@ android {
     buildFeatures {
         compose true
         // Disable unused AGP features
-        buildConfig false
+        buildConfig true
         aidl false
         renderScript false
         resValues false
@@ -83,6 +87,12 @@ dependencies {
 
     implementation Libs.Coil.coilCompose
 
+    implementation Libs.Retrofit.retrofit
+    implementation Libs.Retrofit.gson
+
+    implementation Libs.Hilt.hilt
+    kapt Libs.Hilt.compiler
+
     androidTestImplementation Libs.AndroidX.Activity.activityCompose
 
     androidTestImplementation Libs.JUnit.junit
@@ -91,5 +101,10 @@ dependencies {
     androidTestImplementation Libs.AndroidX.Test.rules
     androidTestImplementation Libs.AndroidX.Test.Ext.junit
     androidTestImplementation Libs.AndroidX.Compose.uiTest
+
+    testImplementation Libs.Test.assertj
+    testImplementation Libs.Hilt.hiltTest
+    kaptTest Libs.Hilt.compiler
+
     debugImplementation Libs.AndroidX.Compose.uiTestManifest
 }

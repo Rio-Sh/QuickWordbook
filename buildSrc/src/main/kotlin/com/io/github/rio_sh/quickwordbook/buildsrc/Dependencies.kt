@@ -62,6 +62,7 @@ object Libs {
                 "androidx.constraintlayout:constraintlayout-compose:1.0.0-rc02"
         }
 
+
         object Test {
             private const val version = "1.4.0"
             const val core = "androidx.test:core:$version"
@@ -82,5 +83,25 @@ object Libs {
 
     object Coil {
         const val coilCompose = "io.coil-kt:coil-compose:1.4.0"
+    }
+
+    object Retrofit {
+        const val version = "2.9.0"
+        const val retrofit = "com.squareup.retrofit2:retrofit:$version"
+        const val gson = "com.squareup.retrofit2:converter-gson:$version"
+    }
+
+    object Hilt {
+        private const val version = "2.40.5"
+        const val hiltPlugin = "com.google.dagger:hilt-android-gradle-plugin:$version"
+
+        const val hilt = "com.google.dagger:hilt-android:$version"
+        const val compiler = "com.google.dagger:hilt-android-compiler:$version"
+
+        const val hiltTest = "com.google.dagger:hilt-android-testing:$version"
+    }
+
+    object Test {
+        const val assertj = "org.assertj:assertj-core:3.22.0"
     }
 }
