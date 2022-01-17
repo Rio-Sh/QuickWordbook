@@ -101,6 +101,13 @@ object Libs {
         const val hiltTest = "com.google.dagger:hilt-android-testing:$version"
     }
 
+    object Room {
+        private const val version = "2.4.1"
+        const val runtime = "androidx.room:room-runtime:$version"
+        const val compiler = "androidx.room:room-compiler:$version"
+        const val ktx = "androidx.room:room-ktx:$version"
+    }
+
     object Test {
         const val assertj = "org.assertj:assertj-core:3.22.0"
     }

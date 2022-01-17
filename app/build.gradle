@@ -93,6 +93,10 @@ dependencies {
     implementation Libs.Hilt.hilt
     kapt Libs.Hilt.compiler
 
+    implementation Libs.Room.runtime
+    annotationProcessor Libs.Room.compiler
+    implementation Libs.Room.ktx
+
     androidTestImplementation Libs.AndroidX.Activity.activityCompose
 
     androidTestImplementation Libs.JUnit.junit
