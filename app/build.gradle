@@ -40,10 +40,14 @@ android {
         targetCompatibility JavaVersion.VERSION_11
     }
 
+    testOptions {
+        unitTests.includeAndroidResources = true
+    }
+
     buildFeatures {
         compose true
-        // Disable unused AGP features
         buildConfig true
+        // Disable unused AGP features
         aidl false
         renderScript false
         resValues false
@@ -93,6 +97,10 @@ dependencies {
     implementation Libs.Hilt.hilt
     kapt Libs.Hilt.compiler
 
+    implementation Libs.Room.runtime
+    kapt Libs.Room.compiler
+    implementation Libs.Room.ktx
+
     androidTestImplementation Libs.AndroidX.Activity.activityCompose
 
     androidTestImplementation Libs.JUnit.junit
@@ -101,10 +109,17 @@ dependencies {
     androidTestImplementation Libs.AndroidX.Test.rules
     androidTestImplementation Libs.AndroidX.Test.Ext.junit
     androidTestImplementation Libs.AndroidX.Compose.uiTest
+    androidTestImplementation Libs.AndroidX.Test.Arch.testing
+    androidTestImplementation Libs.Coroutines.test
+    androidTestImplementation Libs.Test.assertj
 
+    testImplementation Libs.AndroidX.Test.Arch.testing
+    testImplementation Libs.JUnit.junit
     testImplementation Libs.Test.assertj
     testImplementation Libs.Hilt.hiltTest
     kaptTest Libs.Hilt.compiler
+    testImplementation Libs.Coroutines.test
+    testImplementation Libs.Test.robolectric
 
     debugImplementation Libs.AndroidX.Compose.uiTestManifest
 }

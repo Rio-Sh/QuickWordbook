@@ -73,6 +73,11 @@ object Libs {
                 const val junit = "androidx.test.ext:junit-ktx:$version"
             }
 
+            object Arch {
+                private const val version = "2.1.0"
+                const val testing = "androidx.arch.core:core-testing:$version"
+            }
+
             const val espressoCore = "androidx.test.espresso:espresso-core:3.3.0"
         }
     }
@@ -101,7 +106,15 @@ object Libs {
         const val hiltTest = "com.google.dagger:hilt-android-testing:$version"
     }
 
+    object Room {
+        private const val version = "2.4.1"
+        const val runtime = "androidx.room:room-runtime:$version"
+        const val compiler = "androidx.room:room-compiler:$version"
+        const val ktx = "androidx.room:room-ktx:$version"
+    }
+
     object Test {
         const val assertj = "org.assertj:assertj-core:3.22.0"
+        const val robolectric = "org.robolectric:robolectric:4.6"
     }
 }
