@@ -73,6 +73,11 @@ object Libs {
                 const val junit = "androidx.test.ext:junit-ktx:$version"
             }
 
+            object Arch {
+                private const val version = "2.1.0"
+                const val testing = "androidx.arch.core:core-testing:$version"
+            }
+
             const val espressoCore = "androidx.test.espresso:espresso-core:3.3.0"
         }
     }
@@ -110,5 +115,6 @@ object Libs {
 
     object Test {
         const val assertj = "org.assertj:assertj-core:3.22.0"
+        const val robolectric = "org.robolectric:robolectric:4.6"
     }
 }
