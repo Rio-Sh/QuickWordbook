@@ -5,6 +5,7 @@ package com.io.github.rio_sh.quickwordbook.ui
  */
 enum class QuickWordBookScreen {
     Home,
-    Detail,
+    AddCard,
+    EditCard,
     Cards
 }

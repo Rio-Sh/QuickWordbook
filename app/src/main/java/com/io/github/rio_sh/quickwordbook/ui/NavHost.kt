@@ -7,8 +7,9 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.io.github.rio_sh.quickwordbook.ui.add.AddCardBody
 import com.io.github.rio_sh.quickwordbook.ui.cards.CardsBody
-import com.io.github.rio_sh.quickwordbook.ui.detail.DetailBody
+import com.io.github.rio_sh.quickwordbook.ui.edit.EditCardBody
 import com.io.github.rio_sh.quickwordbook.ui.home.HomeBody
 
 @Composable
@@ -23,36 +24,41 @@ fun NavHost(
     ) {
         composable(QuickWordBookScreen.Home.name) {
             HomeBody(
-                onFabClicked = { navController.navigate(QuickWordBookScreen.Detail.name) }
+                onFabClicked = { navController.navigate(QuickWordBookScreen.AddCard.name) },
+                onEditClicked = { wordId -> navigateToEdit(wordId, navController) }
+            )
+        }
+
+        composable(QuickWordBookScreen.AddCard.name) {
+            AddCardBody(
+                onAddDoneButtonClicked = { navController.navigate(QuickWordBookScreen.Home.name) }
             )
         }
 
         composable(QuickWordBookScreen.Cards.name) {
             CardsBody(
-                onCardClicked = { wordId -> navigateToDetail(wordId, navController) }
+                onEditClicked = { wordId -> navigateToEdit(wordId, navController) }
             )
         }
 
         composable(
-            "${QuickWordBookScreen.Detail.name}?wordId={wordId}",
+            "${QuickWordBookScreen.EditCard.name}/{wordId}",
             arguments = listOf(
                 navArgument("wordId") {
-                nullable = true
-                defaultValue = null
                 type = NavType.IntType
             })
         ) { backStackEntry ->
-            DetailBody(
-                wordId = backStackEntry.arguments?.getInt("wordId"),
-                onEditDoneButtonClicked = { navController.navigate(QuickWordBookScreen.Home.name) }
+            EditCardBody(
+                wordId = backStackEntry.arguments!!.getInt("wordId"),
+                onEditDoneButtonClicked = { navController.popBackStack() }
             )
         }
     }
 }
 
-private fun navigateToDetail(
-    wordId: Int?,
+private fun navigateToEdit(
+    wordId: Int,
     navController: NavHostController
 ) {
-    navController.navigate("${QuickWordBookScreen.Detail.name}?wordId=${wordId}")
+    navController.navigate("${QuickWordBookScreen.EditCard.name}/${wordId}")
 }

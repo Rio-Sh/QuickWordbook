@@ -1,12 +1,11 @@
-package com.io.github.rio_sh.quickwordbook.ui.detail
+package com.io.github.rio_sh.quickwordbook.ui.edit
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import com.io.github.rio_sh.quickwordbook.data.Word
 
 @Composable
-fun DetailBody(
-    wordId: Int? = null,
+fun EditCardBody(
+    wordId: Int,
     onEditDoneButtonClicked: () -> Unit = {}
 ) {
     // TODO Implement DetailBody

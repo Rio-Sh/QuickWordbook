@@ -7,7 +7,7 @@ import com.io.github.rio_sh.quickwordbook.data.Word
 @Composable
 fun HomeBody(
     onFabClicked: () -> Unit = {},
-    onCardClicked: (wordId: Int?) -> Unit = {}
+    onEditClicked: (wordId: Int) -> Unit = {}
 ) {
     // TODO Implement HomeBody
     Text(text = "This is Home Screen")

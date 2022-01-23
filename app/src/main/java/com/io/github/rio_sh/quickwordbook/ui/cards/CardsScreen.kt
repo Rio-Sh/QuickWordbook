@@ -5,7 +5,7 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun CardsBody(
-    onCardClicked: (wordId: Int?) -> Unit = {}
+    onEditClicked: (wordId: Int) -> Unit = {}
 ) {
     // TODO Implement CardsBody
     Text(text = "This is Cards Screen")
