@@ -83,7 +83,7 @@ object Libs {
     }
 
     object Android {
-        const val material = "com.google.android.material:material:1.4.0"
+        const val material = "com.google.android.material:material:1.5.0"
     }
 
     object Coil {
