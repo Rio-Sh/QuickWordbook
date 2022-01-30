@@ -88,6 +88,7 @@ dependencies {
     implementation Libs.AndroidX.Compose.material3
 
     implementation Libs.Accompanist.insets
+    implementation Libs.Accompanist.uiController
 
     implementation Libs.Coil.coilCompose
 

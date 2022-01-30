@@ -10,6 +10,7 @@ object Libs {
     object Accompanist {
         const val version = "0.22.0-rc"
         const val insets = "com.google.accompanist:accompanist-insets:$version"
+        const val uiController = "com.google.accompanist:accompanist-systemuicontroller:$version"
     }
 
     object Kotlin {
