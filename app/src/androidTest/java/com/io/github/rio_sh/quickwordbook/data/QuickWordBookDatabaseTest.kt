@@ -5,11 +5,10 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.io.github.rio_sh.quickwordbook.MainCoroutineRule
-import com.io.github.rio_sh.quickwordbook.getOrAwaitValue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runBlockingTest
 import org.assertj.core.api.Assertions.assertThat
-
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
@@ -70,7 +69,8 @@ class QuickWordBookDatabaseTest {
         dao.insertWord(wordItem1)
         dao.insertWord(wordItem2)
 
-        val result = dao.observeAllWords().getOrAwaitValue()
+        //val result = dao.observeAllWords().getOrAwaitValue()
+        val result = dao.observeAllWords().first()
 
        val expect1 = Word(wordId = 1, textSource = "Text1", textTarget = "テキスト1", lastEdit = 0L)
        val expect2 = Word(wordId = 2, textSource = "Text2", textTarget = "テキスト2", lastEdit = 0L)
@@ -84,7 +84,7 @@ class QuickWordBookDatabaseTest {
             dao.insertWord(Word(textSource = "Text$i", textTarget = "テキスト$i", lastEdit = i.toLong()))
         }
 
-        val result = dao.observeLastEditFive().getOrAwaitValue()
+        val result = dao.observeLastEditFive().first()
 
         for (i in 2..6) {
             assertThat(result).contains(Word(wordId = i, textSource = "Text$i", textTarget = "テキスト$i", lastEdit = i.toLong()))
@@ -99,7 +99,7 @@ class QuickWordBookDatabaseTest {
 
         dao.deleteWordById(1)
 
-        val result = dao.observeAllWords().getOrAwaitValue()
+        val result = dao.observeAllWords().first()
 
         val expect1 = Word(wordId = 1, textSource = "Text1", textTarget = "テキスト1", lastEdit = 0L)
         val expect2 = Word(wordId = 2, textSource = "Text2", textTarget = "テキスト2", lastEdit = 0L)

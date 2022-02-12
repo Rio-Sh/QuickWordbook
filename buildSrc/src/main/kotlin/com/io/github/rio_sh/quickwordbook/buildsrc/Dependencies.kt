@@ -63,6 +63,9 @@ object Libs {
                 "androidx.constraintlayout:constraintlayout-compose:1.0.0-rc02"
         }
 
+        object Hilt {
+            const val navigationCompose = "androidx.hilt:hilt-navigation-compose:1.0.0-beta01"
+        }
 
         object Test {
             private const val version = "1.4.0"

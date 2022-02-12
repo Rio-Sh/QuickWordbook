@@ -1,13 +1,14 @@
 package com.io.github.rio_sh.quickwordbook.data
 
-import androidx.lifecycle.LiveData
+import com.io.github.rio_sh.quickwordbook.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class WordsLocalDataSource (
+class WordsLocalDataSource @Inject constructor(
     private val wordsDao: WordsDao,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    @IoDispatcher private val ioDispatcher: CoroutineDispatcher
 ){
     suspend fun insetWord(word: Word) = withContext(ioDispatcher) {
         wordsDao.insertWord(word)
@@ -29,11 +30,11 @@ class WordsLocalDataSource (
         wordsDao.getWordById(wordId)
     }
 
-    fun observeAllWords(): LiveData<List<Word>> {
+    fun observeAllWords(): Flow<List<Word>> {
         return wordsDao.observeAllWords()
     }
 
-    fun observeLastEditFive(): LiveData<List<Word>> {
+    fun observeLastEditFive(): Flow<List<Word>> {
        return wordsDao.observeLastEditFive()
     }
 
