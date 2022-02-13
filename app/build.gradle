@@ -87,7 +87,10 @@ dependencies {
     implementation Libs.AndroidX.Compose.tooling
     implementation Libs.AndroidX.Compose.material3
 
+    implementation Libs.AndroidX.Hilt.navigationCompose
+
     implementation Libs.Accompanist.insets
+    implementation Libs.Accompanist.uiController
 
     implementation Libs.Coil.coilCompose
 

@@ -1,12 +1,13 @@
 package com.io.github.rio_sh.quickwordbook.data
 
-import androidx.lifecycle.LiveData
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 // LocalDatasource's methods is assigned IO dispatcher at definition.
 // Can refactor this as use another datasource. Add a datasource to constructor, and invoke methods in inside coroutineScope block.
-class DefaultWordsRepository(
+class DefaultWordsRepository @Inject constructor(
     private val wordsLocalDataSource: WordsLocalDataSource,
     // private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
@@ -43,11 +44,11 @@ class DefaultWordsRepository(
         }
     }
 
-    fun observeAllWords(): LiveData<List<Word>> {
+    fun observeAllWords(): Flow<List<Word>> {
         return  wordsLocalDataSource.observeAllWords()
     }
 
-    fun observeLastEditFive(): LiveData<List<Word>> {
+    fun observeLastEditFive(): Flow<List<Word>> {
         return wordsLocalDataSource.observeLastEditFive()
     }
 

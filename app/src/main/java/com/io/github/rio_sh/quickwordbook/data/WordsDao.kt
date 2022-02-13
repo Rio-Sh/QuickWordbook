@@ -1,7 +1,7 @@
 package com.io.github.rio_sh.quickwordbook.data
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface WordsDao {
@@ -28,8 +28,8 @@ interface WordsDao {
     suspend fun getWordById(wordId: Int): Word
 
     @Query("SELECT * FROM words")
-    fun observeAllWords(): LiveData<List<Word>>
+    fun observeAllWords(): Flow<List<Word>>
 
     @Query("SELECT * FROM words ORDER BY last_edit DESC LIMIT 5")
-    fun observeLastEditFive(): LiveData<List<Word>>
+    fun observeLastEditFive(): Flow<List<Word>>
 }

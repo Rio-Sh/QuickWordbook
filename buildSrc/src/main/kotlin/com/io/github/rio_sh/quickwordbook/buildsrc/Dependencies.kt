@@ -10,6 +10,7 @@ object Libs {
     object Accompanist {
         const val version = "0.22.0-rc"
         const val insets = "com.google.accompanist:accompanist-insets:$version"
+        const val uiController = "com.google.accompanist:accompanist-systemuicontroller:$version"
     }
 
     object Kotlin {
@@ -62,6 +63,9 @@ object Libs {
                 "androidx.constraintlayout:constraintlayout-compose:1.0.0-rc02"
         }
 
+        object Hilt {
+            const val navigationCompose = "androidx.hilt:hilt-navigation-compose:1.0.0-beta01"
+        }
 
         object Test {
             private const val version = "1.4.0"
@@ -83,7 +87,7 @@ object Libs {
     }
 
     object Android {
-        const val material = "com.google.android.material:material:1.4.0"
+        const val material = "com.google.android.material:material:1.5.0"
     }
 
     object Coil {
