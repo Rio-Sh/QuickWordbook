@@ -9,7 +9,7 @@ import com.google.accompanist.insets.statusBarsPadding
 import com.io.github.rio_sh.quickwordbook.ui.theme.QuickWordbookTheme
 
 @Composable
-fun QuickWordBookApp() {
+fun QuickWordbookApp() {
     QuickWordbookTheme {
         ProvideWindowInsets {
             val navController = rememberNavController()

@@ -11,7 +11,7 @@ import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class QuickWordBookActivity : ComponentActivity() {
+class QuickWordbookActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -25,7 +25,7 @@ class QuickWordBookActivity : ComponentActivity() {
                 systemUiController.setStatusBarColor(Color.Transparent, darkIcons = useDarkIcons)
             }
 
-            QuickWordBookApp()
+            QuickWordbookApp()
         }
     }
 }

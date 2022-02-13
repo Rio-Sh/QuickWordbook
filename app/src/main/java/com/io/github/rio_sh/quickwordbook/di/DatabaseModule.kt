@@ -2,7 +2,7 @@ package com.io.github.rio_sh.quickwordbook.di
 
 import android.content.Context
 import androidx.room.Room
-import com.io.github.rio_sh.quickwordbook.data.QuickWordBookDatabase
+import com.io.github.rio_sh.quickwordbook.data.QuickWordbookDatabase
 import com.io.github.rio_sh.quickwordbook.data.WordsDao
 import dagger.Module
 import dagger.Provides
@@ -18,16 +18,16 @@ import javax.inject.Singleton
 @Module
 class DatabaseModule {
     @Provides
-    fun provideWordsDao(quickWordBookDatabase: QuickWordBookDatabase): WordsDao {
-        return quickWordBookDatabase.wordsDao()
+    fun provideWordsDao(quickWordbookDatabase: QuickWordbookDatabase): WordsDao {
+        return quickWordbookDatabase.wordsDao()
     }
 
     @Provides
     @Singleton
-    fun provideQuickWordBookDatabase(@ApplicationContext appContext : Context): QuickWordBookDatabase {
+    fun provideQuickWordBookDatabase(@ApplicationContext appContext : Context): QuickWordbookDatabase {
         return Room.databaseBuilder(
             appContext,
-            QuickWordBookDatabase::class.java,
+            QuickWordbookDatabase::class.java,
             "QuickWordBookDatabase"
         ).build()
     }

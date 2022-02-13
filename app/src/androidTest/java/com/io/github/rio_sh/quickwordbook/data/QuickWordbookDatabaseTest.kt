@@ -17,8 +17,8 @@ import org.junit.runner.RunWith
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
-class QuickWordBookDatabaseTest {
-    private lateinit var database: QuickWordBookDatabase
+class QuickWordbookDatabaseTest {
+    private lateinit var database: QuickWordbookDatabase
     private lateinit var dao: WordsDao
 
     private val wordItem1 = Word(textSource = "Text1", textTarget = "テキスト1", lastEdit = 0L)
@@ -35,7 +35,7 @@ class QuickWordBookDatabaseTest {
     fun setUp() {
         database = Room.inMemoryDatabaseBuilder(
             ApplicationProvider.getApplicationContext(),
-            QuickWordBookDatabase::class.java
+            QuickWordbookDatabase::class.java
         ).allowMainThreadQueries().build()
         dao = database.wordsDao()
     }

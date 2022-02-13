@@ -12,7 +12,6 @@ import androidx.navigation.navArgument
 import com.io.github.rio_sh.quickwordbook.ui.add.AddCardBody
 import com.io.github.rio_sh.quickwordbook.ui.cards.CardsBody
 import com.io.github.rio_sh.quickwordbook.ui.edit.EditCardBody
-import com.io.github.rio_sh.quickwordbook.ui.home.HomeBody
 import com.io.github.rio_sh.quickwordbook.ui.home.HomeRoute
 import com.io.github.rio_sh.quickwordbook.ui.home.HomeViewModel
 
@@ -24,33 +23,33 @@ fun NavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = QuickWordBookScreen.Home.name,
+        startDestination = QuickWordbookScreen.Home.name,
         modifier = modifier
     ) {
-        composable(QuickWordBookScreen.Home.name) {
+        composable(QuickWordbookScreen.Home.name) {
             val homeViewModel = hiltViewModel<HomeViewModel>()
             HomeRoute(
                 homeViewModel = homeViewModel,
-                onAddFabClicked = { navController.navigate(QuickWordBookScreen.AddCard.name) },
-                onCardsFabClicked = { navController.navigate(QuickWordBookScreen.Cards.name) },
+                onAddFabClicked = { navController.navigate(QuickWordbookScreen.AddCard.name) },
+                onCardsFabClicked = { navController.navigate(QuickWordbookScreen.Cards.name) },
                 onEditClicked = { wordId -> navigateToEdit(wordId, navController) }
             )
         }
 
-        composable(QuickWordBookScreen.AddCard.name) {
+        composable(QuickWordbookScreen.AddCard.name) {
             AddCardBody(
-                onAddDoneButtonClicked = { navController.navigate(QuickWordBookScreen.Home.name) }
+                onAddDoneButtonClicked = { navController.navigate(QuickWordbookScreen.Home.name) }
             )
         }
 
-        composable(QuickWordBookScreen.Cards.name) {
+        composable(QuickWordbookScreen.Cards.name) {
             CardsBody(
                 onEditClicked = { wordId -> navigateToEdit(wordId, navController) }
             )
         }
 
         composable(
-            "${QuickWordBookScreen.EditCard.name}/{wordId}",
+            "${QuickWordbookScreen.EditCard.name}/{wordId}",
             arguments = listOf(
                 navArgument("wordId") {
                 type = NavType.IntType
@@ -68,5 +67,5 @@ private fun navigateToEdit(
     wordId: Int,
     navController: NavHostController
 ) {
-    navController.navigate("${QuickWordBookScreen.EditCard.name}/${wordId}")
+    navController.navigate("${QuickWordbookScreen.EditCard.name}/${wordId}")
 }
