@@ -9,14 +9,13 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:name=".QuickWordBookApplication"
+        android:name=".QuickWordbookApplication"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.QuickWordbook">
         <activity
-            android:name=".ui.QuickWordBookActivity"
+            android:name=".ui.QuickWordbookActivity"
             android:exported="true"
-            android:label="@string/app_name"
             android:theme="@style/Theme.QuickWordbook.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
