@@ -4,6 +4,7 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -11,6 +12,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.io.github.rio_sh.quickwordbook.ui.add.AddCardBody
 import com.io.github.rio_sh.quickwordbook.ui.cards.CardsBody
+import com.io.github.rio_sh.quickwordbook.ui.cards.CardsRoute
+import com.io.github.rio_sh.quickwordbook.ui.cards.CardsViewModel
 import com.io.github.rio_sh.quickwordbook.ui.edit.EditCardBody
 import com.io.github.rio_sh.quickwordbook.ui.home.HomeRoute
 import com.io.github.rio_sh.quickwordbook.ui.home.HomeViewModel
@@ -43,8 +46,13 @@ fun NavHost(
         }
 
         composable(QuickWordbookScreen.Cards.name) {
-            CardsBody(
-                onEditClicked = { wordId -> navigateToEdit(wordId, navController) }
+            val cardsViewModel = hiltViewModel<CardsViewModel>()
+            CardsRoute(
+                cardsViewModel = cardsViewModel,
+                onBackClicked = { navController.navigate(QuickWordbookScreen.Home.name) {
+                    popUpTo(navController.graph.findStartDestination().id)
+                } },
+                onEditClicked = { wordId -> navigateToEdit(wordId, navController) },
             )
         }
 
