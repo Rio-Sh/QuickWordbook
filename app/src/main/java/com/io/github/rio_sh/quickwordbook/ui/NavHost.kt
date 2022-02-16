@@ -52,6 +52,7 @@ fun NavHost(
                 onBackClicked = { navController.navigate(QuickWordbookScreen.Home.name) {
                     popUpTo(navController.graph.findStartDestination().id)
                 } },
+                onAddFabClicked = { navController.navigate(QuickWordbookScreen.AddCard.name) },
                 onEditClicked = { wordId -> navigateToEdit(wordId, navController) },
             )
         }
