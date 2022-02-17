@@ -5,7 +5,13 @@ import androidx.compose.runtime.Composable
 
 @Composable
 fun AddCardBody(
-    onAddDoneButtonClicked: () -> Unit = {}
+    uiState: AddCardUiState,
+    onTranslateText: () -> Unit,
+    onSourceTextChanged:(String) -> Unit,
+    onTargetTextChanged: (String) -> Unit,
+    onAddButtonClicked: () -> Unit,
+    onBackClicked: () -> Unit,
+    onTargetLanguageChanged: () -> Unit,
 ) {
     // TODO implement AddCardBody
     Text(text = "This is AddCard Screen")
