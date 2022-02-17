@@ -1,7 +1,9 @@
 package com.io.github.rio_sh.quickwordbook
 
 import com.io.github.rio_sh.quickwordbook.network.GasService
-import com.io.github.rio_sh.quickwordbook.network.Language
+import com.io.github.rio_sh.quickwordbook.network.Languages
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
@@ -25,9 +27,9 @@ class NetworkTest {
 
     @Test
     fun getResponseHello() {
-        val get = service.getTranslateResponse("hello", Language.ENGLISH, Language.JAPANESE)
         val response = runBlocking {
-            get.execute()
+            val job = async { service.getTranslateResponse("hello", Languages.ENGLISH.languageCode, Languages.JAPANESE.languageCode) }
+            job.await()
         }
 
         assertThat(response.body()?.code).isEqualTo(200)
@@ -36,9 +38,9 @@ class NetworkTest {
 
     @Test
     fun getResponseEmpty() {
-        val get = service.getTranslateResponse("", Language.ENGLISH, Language.JAPANESE)
         val response = runBlocking {
-            get.execute()
+            val job = async { service.getTranslateResponse("", Languages.ENGLISH.languageCode, Languages.JAPANESE.languageCode) }
+            job.await()
         }
 
         assertThat(response.body()?.code).isEqualTo(400)
