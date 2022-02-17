@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 // LocalDatasource's methods is assigned IO dispatcher at definition.
 // Can refactor this as use another datasource. Add a datasource to constructor, and invoke methods in inside coroutineScope block.
-class DefaultWordsRepository @Inject constructor(
+class DefaultRepository @Inject constructor(
     private val wordsLocalDataSource: WordsLocalDataSource,
     // private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {

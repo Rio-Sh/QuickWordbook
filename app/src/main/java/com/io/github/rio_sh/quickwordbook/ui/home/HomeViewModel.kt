@@ -2,7 +2,7 @@ package com.io.github.rio_sh.quickwordbook.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.io.github.rio_sh.quickwordbook.data.DefaultWordsRepository
+import com.io.github.rio_sh.quickwordbook.data.DefaultRepository
 import com.io.github.rio_sh.quickwordbook.data.Word
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
@@ -41,7 +41,7 @@ private data class HomeViewModelState(
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val defaultWordsRepository: DefaultWordsRepository
+    private val defaultRepository: DefaultRepository
 ) : ViewModel() {
     private val viewModelState = MutableStateFlow(HomeViewModelState(isLoading = false))
 
@@ -58,7 +58,7 @@ class HomeViewModel @Inject constructor(
         viewModelState.update { it.copy(isLoading = true) }
 
         viewModelScope.launch {
-            defaultWordsRepository.observeLastEditFive().collect { words ->
+            defaultRepository.observeLastEditFive().collect { words ->
                 viewModelState.update { it.copy(words = words, isLoading = false) }
             }
         }
@@ -66,7 +66,7 @@ class HomeViewModel @Inject constructor(
 
     fun deleteWord(wordId: Int) {
         viewModelScope.launch {
-            defaultWordsRepository.deleteWordById(wordId)
+            defaultRepository.deleteWordById(wordId)
         }
     }
 
