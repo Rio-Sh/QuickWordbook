@@ -13,6 +13,14 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * @param sourceText
+ * @param targetText
+ * @param isTargetTextLoading
+ * @param sourceLanguages
+ * @param targetLanguage
+ * @param isSwitchChecked
+ */
 data class AddCardUiState(
     val sourceText: String = "",
     val targetText: String = "",
