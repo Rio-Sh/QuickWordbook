@@ -11,6 +11,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.io.github.rio_sh.quickwordbook.ui.add.AddCardBody
+import com.io.github.rio_sh.quickwordbook.ui.add.AddCardRoute
+import com.io.github.rio_sh.quickwordbook.ui.add.AddCardViewModel
 import com.io.github.rio_sh.quickwordbook.ui.cards.CardsBody
 import com.io.github.rio_sh.quickwordbook.ui.cards.CardsRoute
 import com.io.github.rio_sh.quickwordbook.ui.cards.CardsViewModel
@@ -40,8 +42,11 @@ fun NavHost(
         }
 
         composable(QuickWordbookScreen.AddCard.name) {
-            AddCardBody(
-                onAddDoneButtonClicked = { navController.navigate(QuickWordbookScreen.Home.name) }
+            val addCardViewModel = hiltViewModel<AddCardViewModel>()
+            AddCardRoute(
+                addCardViewModel = addCardViewModel,
+                onAddWord = { navController.popBackStack() },
+                onBackClicked = { navController.popBackStack() }
             )
         }
 

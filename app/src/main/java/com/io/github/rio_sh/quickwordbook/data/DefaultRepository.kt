@@ -1,14 +1,20 @@
 package com.io.github.rio_sh.quickwordbook.data
 
+import com.io.github.rio_sh.quickwordbook.network.GasService
+import com.io.github.rio_sh.quickwordbook.network.Languages
+import com.io.github.rio_sh.quickwordbook.network.ResponseText
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
+import retrofit2.Response
+import java.lang.Exception
 import javax.inject.Inject
 
 // LocalDatasource's methods is assigned IO dispatcher at definition.
 // Can refactor this as use another datasource. Add a datasource to constructor, and invoke methods in inside coroutineScope block.
-class DefaultWordsRepository @Inject constructor(
+class DefaultRepository @Inject constructor(
     private val wordsLocalDataSource: WordsLocalDataSource,
+    private val gasService: GasService
     // private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) {
 
@@ -52,4 +58,15 @@ class DefaultWordsRepository @Inject constructor(
         return wordsLocalDataSource.observeLastEditFive()
     }
 
+    suspend fun translateText(
+        sourceText: String,
+        sourceLanguage: Languages,
+        targetLanguages: Languages
+    ) : Response<ResponseText> {
+        return gasService.getTranslateResponse(
+            sourceText,
+            sourceLanguage.languageCode,
+            targetLanguages.languageCode
+        )
+    }
 }
