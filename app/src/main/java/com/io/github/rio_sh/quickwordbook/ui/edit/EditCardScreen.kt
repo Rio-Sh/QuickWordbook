@@ -1,13 +1,87 @@
 package com.io.github.rio_sh.quickwordbook.ui.edit
 
-import androidx.compose.material.Text
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import com.google.accompanist.insets.statusBarsPadding
+import com.io.github.rio_sh.quickwordbook.ui.common.TranslateCard
+import com.io.github.rio_sh.quickwordbook.ui.theme.QuickWordbookTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditCardBody(
-    wordId: Int,
-    onEditDoneButtonClicked: () -> Unit = {}
+    uiState: EditCardUiState,
+    onTranslateText: () -> Unit,
+    onSourceTextChanged:(String) -> Unit,
+    onTargetTextChanged: (String) -> Unit,
+    onTargetLanguageChanged: () -> Unit,
+    onToggleSwitch: (Boolean) -> Unit,
+    onEditButtonClicked: () -> Unit,
+    onBackClicked: () -> Unit,
 ) {
-    // TODO Implement DetailBody
-    Text(text = "This is Detail Screen")
+    Scaffold(
+        topBar = {
+            Row(
+                modifier = Modifier.statusBarsPadding(),
+                horizontalArrangement = Arrangement.Start
+            ){
+                IconButton(onClick = { onBackClicked() }) {
+                    Icon(
+                        imageVector = Icons.Filled.ArrowBack,
+                        contentDescription = null,
+                    )
+                }
+            }
+        },
+    ) { innerPadding ->
+        Column(
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize(1f),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            TranslateCard(
+                sourceText = uiState.sourceText,
+                targetText = uiState.targetText,
+                isTargetTextLoading = uiState.isTargetTextLoading,
+                targetLanguage = uiState.targetLanguage,
+                isSwitchChecked = uiState.isSwitchChecked,
+                onSourceTextChanged = onSourceTextChanged,
+                onTargetTextChanged = onTargetTextChanged,
+                onTranslateText = onTranslateText,
+                onTargetLanguageChanged = onTargetLanguageChanged,
+                onToggleSwitch = onToggleSwitch,
+                onDoneButtonClicked = onEditButtonClicked
+            ) {
+               Text("編集")
+            }
+            Spacer(modifier = Modifier.padding(32.dp))
+        }
+    }
+}
+
+@Preview
+@Preview(uiMode = UI_MODE_NIGHT_YES)
+@Composable
+fun EditCardScreenPreview() {
+    QuickWordbookTheme {
+        EditCardBody(
+            uiState = EditCardUiState(),
+            onTranslateText = {},
+            onSourceTextChanged = {},
+            onTargetTextChanged = {},
+            onTargetLanguageChanged = {},
+            onToggleSwitch = {},
+            onEditButtonClicked = {},
+            onBackClicked = {}
+        )
+    }
 }

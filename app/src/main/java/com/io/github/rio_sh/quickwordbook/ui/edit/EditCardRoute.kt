@@ -1,8 +1,6 @@
 package com.io.github.rio_sh.quickwordbook.ui.edit
 
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 
 @Composable
 fun EditCardRoute(
@@ -12,7 +10,21 @@ fun EditCardRoute(
     onBackClicked: () -> Unit,
 ) {
     val uiSate by editCardViewModel.uiState.collectAsState()
-    editCardViewModel.setWordId(wordId = wordId)
+    LaunchedEffect(key1 = true){
+        editCardViewModel.setWord(wordId = wordId)
+    }
 
-    // TODO EditCard Body
+    EditCardBody(
+        uiState = uiSate,
+        onTranslateText = { editCardViewModel.translateText() },
+        onSourceTextChanged = { editCardViewModel.changeSourceText(it) },
+        onTargetTextChanged = { editCardViewModel.changeTargetText(it) },
+        onTargetLanguageChanged = { editCardViewModel.changeTargetLanguage() },
+        onToggleSwitch = { editCardViewModel.toggleSwitch(it) },
+        onEditButtonClicked = {
+            editCardViewModel.upDateWord()
+            onEditWordDone() },
+        onBackClicked = { onBackClicked() }
+    )
+
 }

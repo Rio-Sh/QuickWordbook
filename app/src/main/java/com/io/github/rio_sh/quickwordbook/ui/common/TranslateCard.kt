@@ -66,10 +66,10 @@ fun TranslateCard(
                     )
                     when (targetLanguage) {
                         Languages.ENGLISH -> {
-                            Text(text = "和訳")
+                            Text(text = "英訳")
                         }
                         Languages.JAPANESE -> {
-                            Text(text = "英訳")
+                            Text(text = "和訳")
                         }
                     }
                 }

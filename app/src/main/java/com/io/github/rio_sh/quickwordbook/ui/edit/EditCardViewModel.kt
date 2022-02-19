@@ -13,8 +13,17 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * @param word
+ * @param sourceText
+ * @param targetText
+ * @param isTargetTextLoading
+ * @param sourceLanguages
+ * @param targetLanguage
+ * @param isSwitchChecked
+ */
 data class EditCardUiState(
-    val wordId: Int = -1,
+    val word: Word = Word(-1, "", "", -1L),
     val sourceText: String = "",
     val targetText: String = "",
     val isTargetTextLoading: Boolean = false,
@@ -34,7 +43,7 @@ class EditCardViewModel @Inject constructor(
         viewModelScope.launch {
             defaultRepository.updateWord(
                 Word(
-                    wordId = _uiState.value.wordId,
+                    wordId = _uiState.value.word.wordId,
                     textSource = _uiState.value.sourceText,
                     textTarget = _uiState.value.targetText
                 )
@@ -42,8 +51,11 @@ class EditCardViewModel @Inject constructor(
         }
     }
 
-    fun setWordId(wordId: Int) {
-        _uiState.update { it.copy(wordId = wordId) }
+    fun setWord(wordId: Int) {
+        viewModelScope.launch {
+            val word = defaultRepository.getWordById(wordId)
+            _uiState.update { it.copy(word = word, sourceText = word.textSource, targetText = word.textTarget) }
+        }
     }
 
     fun changeSourceText(newText: String) {
