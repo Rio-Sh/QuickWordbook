@@ -26,7 +26,7 @@ class WordsLocalDataSource @Inject constructor(
         wordsDao.deleteAllWords()
     }
 
-    suspend fun getWordById(wordId: Int) = withContext(ioDispatcher) {
+    suspend fun getWordById(wordId: Int): Word = withContext(ioDispatcher) {
         wordsDao.getWordById(wordId)
     }
 

@@ -3,6 +3,7 @@ package com.io.github.rio_sh.quickwordbook.data
 import com.io.github.rio_sh.quickwordbook.network.GasService
 import com.io.github.rio_sh.quickwordbook.network.Languages
 import com.io.github.rio_sh.quickwordbook.network.ResponseText
+import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -44,9 +45,9 @@ class DefaultRepository @Inject constructor(
         }
     }
 
-    suspend fun getWordById(wordId: Int) {
-        coroutineScope {
-            launch { wordsLocalDataSource.getWordById(wordId) }
+    suspend fun getWordById(wordId: Int): Word {
+        return coroutineScope {
+            wordsLocalDataSource.getWordById(wordId)
         }
     }
 
