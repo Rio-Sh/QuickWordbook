@@ -10,13 +10,12 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.io.github.rio_sh.quickwordbook.ui.add.AddCardBody
 import com.io.github.rio_sh.quickwordbook.ui.add.AddCardRoute
 import com.io.github.rio_sh.quickwordbook.ui.add.AddCardViewModel
-import com.io.github.rio_sh.quickwordbook.ui.cards.CardsBody
 import com.io.github.rio_sh.quickwordbook.ui.cards.CardsRoute
 import com.io.github.rio_sh.quickwordbook.ui.cards.CardsViewModel
-import com.io.github.rio_sh.quickwordbook.ui.edit.EditCardBody
+import com.io.github.rio_sh.quickwordbook.ui.edit.EditCardRoute
+import com.io.github.rio_sh.quickwordbook.ui.edit.EditCardViewModel
 import com.io.github.rio_sh.quickwordbook.ui.home.HomeRoute
 import com.io.github.rio_sh.quickwordbook.ui.home.HomeViewModel
 
@@ -45,7 +44,7 @@ fun NavHost(
             val addCardViewModel = hiltViewModel<AddCardViewModel>()
             AddCardRoute(
                 addCardViewModel = addCardViewModel,
-                onAddWord = { navController.popBackStack() },
+                onAddWordDone = { navController.popBackStack() },
                 onBackClicked = { navController.popBackStack() }
             )
         }
@@ -63,15 +62,17 @@ fun NavHost(
         }
 
         composable(
-            "${QuickWordbookScreen.EditCard.name}/{wordId}",
-            arguments = listOf(
-                navArgument("wordId") {
+            route = "${QuickWordbookScreen.EditCard.name}/{wordId}",
+            arguments = listOf( navArgument("wordId") {
                 type = NavType.IntType
             })
         ) { backStackEntry ->
-            EditCardBody(
+            val editCardViewModel = hiltViewModel<EditCardViewModel>()
+            EditCardRoute(
+                editCardViewModel = editCardViewModel,
                 wordId = backStackEntry.arguments!!.getInt("wordId"),
-                onEditDoneButtonClicked = { navController.popBackStack() }
+                onEditWordDone = { navController.popBackStack() },
+                onBackClicked = { navController.popBackStack() }
             )
         }
     }

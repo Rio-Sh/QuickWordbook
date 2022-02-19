@@ -1,4 +1,4 @@
-package com.io.github.rio_sh.quickwordbook.ui.add
+package com.io.github.rio_sh.quickwordbook.ui.edit
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
+ * @param word
  * @param sourceText
  * @param targetText
  * @param isTargetTextLoading
@@ -21,7 +22,8 @@ import javax.inject.Inject
  * @param targetLanguage
  * @param isSwitchChecked
  */
-data class AddCardUiState(
+data class EditCardUiState(
+    val word: Word = Word(-1, "", "", -1L),
     val sourceText: String = "",
     val targetText: String = "",
     val isTargetTextLoading: Boolean = false,
@@ -31,20 +33,28 @@ data class AddCardUiState(
 )
 
 @HiltViewModel
-class AddCardViewModel @Inject constructor(
+class EditCardViewModel @Inject constructor(
     private val defaultRepository: DefaultRepository
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(AddCardUiState())
-    val uiState: StateFlow<AddCardUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(EditCardUiState())
+    val uiState: StateFlow<EditCardUiState> = _uiState.asStateFlow()
 
-    fun addWord() {
+    fun upDateWord(){
         viewModelScope.launch {
-            defaultRepository.insertWord(
+            defaultRepository.updateWord(
                 Word(
+                    wordId = _uiState.value.word.wordId,
                     textSource = _uiState.value.sourceText,
                     textTarget = _uiState.value.targetText
                 )
             )
+        }
+    }
+
+    fun setWord(wordId: Int) {
+        viewModelScope.launch {
+            val word = defaultRepository.getWordById(wordId)
+            _uiState.update { it.copy(word = word, sourceText = word.textSource, targetText = word.textTarget) }
         }
     }
 
