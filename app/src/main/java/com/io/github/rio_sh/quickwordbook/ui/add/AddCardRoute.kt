@@ -7,7 +7,7 @@ import androidx.compose.runtime.getValue
 @Composable
 fun AddCardRoute(
     addCardViewModel: AddCardViewModel,
-    onAddWord: () -> Unit,
+    onAddWordDone: () -> Unit,
     onBackClicked: () -> Unit,
 ) {
     val uiState by addCardViewModel.uiState.collectAsState()
@@ -19,7 +19,7 @@ fun AddCardRoute(
         onTargetTextChanged = { addCardViewModel.changeTargetText(it) },
         onAddButtonClicked = {
             addCardViewModel.addWord()
-            onAddWord()
+            onAddWordDone()
         },
         onBackClicked = { onBackClicked() },
         onTargetLanguageChanged = { addCardViewModel.changeTargetLanguage() },
