@@ -32,8 +32,8 @@ class CardsViewModel @Inject constructor(
         }
     }
 
-    fun expandOrCloseCards() {
-        _uiState.update { it.copy(isCardsOpen = true) }
+    fun toggleCardsExpand(value: Boolean) {
+        _uiState.update { it.copy(isCardsOpen = value) }
     }
 
     fun deleteWord(wordId: Int) {

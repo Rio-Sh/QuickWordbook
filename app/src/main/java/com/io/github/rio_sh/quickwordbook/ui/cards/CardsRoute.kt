@@ -24,7 +24,7 @@ fun CardsRoute(
         onAddFabClicked = onAddFabClicked,
         onEditClicked = onEditClicked,
         onDeleteWord = { cardsViewModel.deleteWord(it) },
-        expandOrCloseCards = { cardsViewModel.expandOrCloseCards() },
+        toggleCardsExpand = { cardsViewModel.toggleCardsExpand(it) },
         onDeleteAllWords = { cardsViewModel.deleteAllWords() }
     )
 }
