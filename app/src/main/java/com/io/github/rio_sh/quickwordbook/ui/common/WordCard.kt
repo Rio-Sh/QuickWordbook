@@ -1,6 +1,9 @@
 package com.io.github.rio_sh.quickwordbook.ui.common
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -54,7 +57,9 @@ fun WordCard(
         contentColor = contentColor
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth(1f),
+            modifier = Modifier
+                .fillMaxWidth(1f)
+                .width(IntrinsicSize.Max),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Row(
@@ -65,7 +70,7 @@ fun WordCard(
                 Spacer(modifier = Modifier.size(4.dp))
                 Text(
                     text = word.textSource,
-                    modifier = Modifier .padding(start = 16.dp),
+                    modifier = Modifier.padding(start = 16.dp),
                     color = contentColor,
                     style = MaterialTheme.typography.titleMedium,
                     overflow = TextOverflow.Ellipsis,
@@ -96,8 +101,10 @@ fun WordCard(
                     }
                 }
             }
-            // TODO Add Animation
-            if (isExpandedCard) {
+            AnimatedVisibility(
+                visible = isExpandedCard,
+                enter = expandVertically(expandFrom = Alignment.Top),
+            ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
                         word.textTarget,
@@ -107,15 +114,17 @@ fun WordCard(
                         overflow = TextOverflow.Ellipsis,
                         maxLines = 1,
                     )
-                    Icon(
-                        modifier = Modifier.clickable { isExpandedCard = false },
-                        imageVector = Icons.Filled.ExpandLess,
-                        contentDescription = null
-                    )
                 }
+            }
+            if(isExpandedCard){
+                Icon(
+                    modifier = Modifier.clickable { isExpandedCard = !isExpandedCard },
+                    imageVector = Icons.Filled.ExpandLess,
+                    contentDescription = null
+                )
             } else {
                 Icon(
-                    modifier = Modifier.clickable { isExpandedCard = true },
+                    modifier = Modifier.clickable { isExpandedCard = !isExpandedCard },
                     imageVector = Icons.Filled.ExpandMore,
                     contentDescription = null
                 )
