@@ -18,6 +18,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.*
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.navigationBarsPadding
@@ -58,7 +59,8 @@ fun CardsBody(
                     contentDescription = ""
                 )
             }
-        }
+        },
+        containerColor = MaterialTheme.colorScheme.surfaceVariant
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -66,10 +68,12 @@ fun CardsBody(
                 .navigationBarsPadding()
                 .padding(innerPadding)
         ) {
-            Spacer(modifier = Modifier.padding(56.dp))
+            Spacer(modifier = Modifier.padding(48.dp))
             Text(
+                modifier = Modifier.padding(16.dp),
                 text = stringResource(R.string.your_wordbook),
-                style = MaterialTheme.typography.headlineSmall
+                style = MaterialTheme.typography.headlineMedium,
+                fontWeight = FontWeight.Bold
             )
             StaggerLayout(
                 modifier = Modifier

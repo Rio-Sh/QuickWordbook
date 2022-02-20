@@ -1,5 +1,6 @@
 package com.io.github.rio_sh.quickwordbook.ui.common
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -36,7 +37,8 @@ fun TranslateCard(
 ) {
     Surface(
         shape = Shapes.medium,
-        color = MaterialTheme.colorScheme.primaryContainer
+        color = MaterialTheme.colorScheme.secondaryContainer,
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onSurfaceVariant)
     ) {
         Column(
             modifier = Modifier

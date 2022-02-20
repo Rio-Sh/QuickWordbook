@@ -4,6 +4,7 @@ import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -42,8 +43,8 @@ import com.io.github.rio_sh.quickwordbook.ui.theme.Shapes
 fun WordCard(
     modifier: Modifier = Modifier,
     word: Word,
-    backgroundColor: Color = MaterialTheme.colorScheme.primaryContainer,
-    contentColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
+    backgroundColor: Color = MaterialTheme.colorScheme.secondaryContainer,
+    contentColor: Color = MaterialTheme.colorScheme.onSecondaryContainer,
     navigationToDetail: (wordId: Int) -> Unit,
     expanded: Boolean = false,
     onDeleteWord: (wordId: Int) -> Unit
@@ -56,12 +57,13 @@ fun WordCard(
         modifier = modifier,
         shape = Shapes.medium,
         backgroundColor = backgroundColor,
-        contentColor = contentColor
+        contentColor = contentColor,
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onSurfaceVariant)
     ) {
         Column(
             modifier = Modifier
-                .fillMaxWidth(1f)
-                .width(IntrinsicSize.Max),
+                .fillMaxWidth(1f),
+                //.width(IntrinsicSize.Max),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Row(

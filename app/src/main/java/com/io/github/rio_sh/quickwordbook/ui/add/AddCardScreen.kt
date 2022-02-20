@@ -42,6 +42,7 @@ fun AddCardBody(
                 }
             }
         },
+        containerColor = MaterialTheme.colorScheme.surfaceVariant
     ) { innerPadding ->
         Column(
             modifier = Modifier

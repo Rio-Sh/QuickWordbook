@@ -67,7 +67,8 @@ fun HomeBody(
                     )
                 }
             }
-        }
+        },
+        containerColor = MaterialTheme.colorScheme.surfaceVariant
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -91,6 +92,7 @@ fun HomeBody(
                 }
             } else {
                 Text(
+                    modifier = Modifier.padding(16.dp),
                     text = stringResource(R.string.add_words_to_your_wordbook),
                     style = MaterialTheme.typography.headlineLarge,
                     fontWeight = FontWeight.Bold
