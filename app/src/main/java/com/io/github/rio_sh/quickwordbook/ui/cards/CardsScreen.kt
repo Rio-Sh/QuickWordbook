@@ -17,10 +17,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.*
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
+import com.io.github.rio_sh.quickwordbook.R
 import com.io.github.rio_sh.quickwordbook.data.Word
 import com.io.github.rio_sh.quickwordbook.ui.common.WordCard
 import com.io.github.rio_sh.quickwordbook.ui.theme.QuickWordbookTheme
@@ -66,7 +68,7 @@ fun CardsBody(
         ) {
             Spacer(modifier = Modifier.padding(56.dp))
             Text(
-                text = "Your Wordbook",
+                text = stringResource(R.string.your_wordbook),
                 style = MaterialTheme.typography.headlineSmall
             )
             StaggerLayout(
@@ -127,8 +129,8 @@ private fun AlertDialog(
                 contentDescription = null
             )
         },
-        title = { Text(text = "全ての単語を削除しますか？") },
-        text = { Text(text = "この操作は取り消せません") },
+        title = { Text(text = stringResource(R.string.do_you_delete_all_words)) },
+        text = { Text(text = stringResource(R.string.cant_cancel_this_operation)) },
         confirmButton = {
             TextButton(
                 onClick = {
@@ -140,7 +142,7 @@ private fun AlertDialog(
                     contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             ) {
-                Text("削除")
+                Text(stringResource(R.string.delete))
             }
         },
         dismissButton = {
@@ -148,7 +150,7 @@ private fun AlertDialog(
                 onClick = { openDialog(false) },
                 colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.onSurface)
             ) {
-                Text(text = "キャンセル")
+                Text(text = stringResource(R.string.cancel))
             }
         }
     )
@@ -236,18 +238,18 @@ private fun AppBar(
                 ) {
                     if(!isCardsOpen) {
                         DropdownMenuItem(onClick = { toggleCardsExpand(true) } ) {
-                            Text("Open All")
+                            Text(stringResource(R.string.open_all))
                         }
                     } else {
                         DropdownMenuItem(onClick = { toggleCardsExpand(false) } ) {
-                            Text("Close All")
+                            Text(stringResource(R.string.close_all))
                         }
                     }
                     DropdownMenuItem(
                         onClick = { openDialog(true) },
                         modifier = Modifier.background(MaterialTheme.colorScheme.error),
                     ) {
-                        Text("全て削除", color = MaterialTheme.colorScheme.onError)
+                        Text(stringResource(R.string.delete_all), color = MaterialTheme.colorScheme.onError)
                     }
                 }
             }

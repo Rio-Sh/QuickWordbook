@@ -21,10 +21,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.io.github.rio_sh.quickwordbook.R
 import com.io.github.rio_sh.quickwordbook.data.Word
 import com.io.github.rio_sh.quickwordbook.ui.theme.QuickWordbookTheme
 import com.io.github.rio_sh.quickwordbook.ui.theme.Shapes
@@ -92,10 +94,16 @@ fun WordCard(
                             onDismissRequest = { isOpenDropdown = false }
                         ) {
                             DropdownMenuItem(onClick = { navigationToDetail(word.wordId) }) {
-                                Text("編集", color = MaterialTheme.colorScheme.onSurface)
+                                Text(
+                                    text = stringResource(R.string.edit),
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
                             }
                             DropdownMenuItem(onClick = { isOpenDialog = true}) {
-                                Text("削除", color = MaterialTheme.colorScheme.onSurface)
+                                Text(
+                                    text = stringResource(R.string.delete),
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
                             }
                         }
                     }
@@ -153,8 +161,8 @@ private fun AlertDialog(
                 contentDescription = null
             )
         },
-        title = { Text(text = "この単語を削除しますか？") },
-        text = { Text(text = "この操作は取り消せません") },
+        title = { Text(text = stringResource(R.string.do_you_remove_this_word)) },
+        text = { Text(text = stringResource(R.string.cant_cancel_this_operation)) },
         confirmButton = {
             TextButton(
                 onClick = {
@@ -166,7 +174,7 @@ private fun AlertDialog(
                     contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             ) {
-                Text("削除")
+                Text(stringResource(R.string.delete))
             }
         },
         dismissButton = {
@@ -174,7 +182,7 @@ private fun AlertDialog(
                 onClick = { openDialog(false) },
                 colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.onSurface)
             ) {
-                Text(text = "キャンセル")
+                Text(text = stringResource(R.string.cancel))
             }
         }
     )
