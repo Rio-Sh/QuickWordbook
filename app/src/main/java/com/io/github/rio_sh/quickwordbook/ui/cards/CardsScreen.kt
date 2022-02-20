@@ -35,14 +35,15 @@ fun CardsBody(
     onAddFabClicked: () -> Unit,
     onEditClicked: (wordId: Int) -> Unit,
     onDeleteWord: (wordId: Int) -> Unit,
-    expandOrCloseCards: () -> Unit,
+    toggleCardsExpand: (Boolean) -> Unit,
     onDeleteAllWords: () -> Unit
 ) {
     var isOpenDialog by remember { mutableStateOf(false) }
     Scaffold(
         topBar = { AppBar(
             onBackClicked = onBackClicked,
-            expandOrCloseCards = expandOrCloseCards,
+            isCardsOpen = uiState.isCardsOpen,
+            toggleCardsExpand =  toggleCardsExpand,
             openDialog = { isOpenDialog = it }
         ) },
         floatingActionButton = {
@@ -73,17 +74,33 @@ fun CardsBody(
                     .horizontalScroll(rememberScrollState())
             ) {
                 uiState.words.forEach { word ->
-                    WordCard(
-                        modifier = Modifier.padding(
-                            start = 8.dp,
-                            top = 16.dp,
-                            end = 8.dp,
-                            bottom = 16.dp
-                        ),
-                        word = word,
-                        navigationToDetail = onEditClicked,
-                        onDeleteWord = onDeleteWord
-                    )
+                    if(!uiState.isCardsOpen){
+                        WordCard(
+                            modifier = Modifier.padding(
+                                start = 8.dp,
+                                top = 16.dp,
+                                end = 8.dp,
+                                bottom = 16.dp
+                            ),
+                            word = word,
+                            navigationToDetail = onEditClicked,
+                            expanded = false,
+                            onDeleteWord = onDeleteWord
+                        )
+                    } else {
+                        WordCard(
+                            modifier = Modifier.padding(
+                                start = 8.dp,
+                                top = 16.dp,
+                                end = 8.dp,
+                                bottom = 16.dp
+                            ),
+                            word = word,
+                            navigationToDetail = onEditClicked,
+                            expanded = true,
+                            onDeleteWord = onDeleteWord
+                        )
+                    }
                 }
             }
         }
@@ -187,7 +204,8 @@ private fun StaggerLayout(
 @Composable
 private fun AppBar(
     onBackClicked: () -> Unit,
-    expandOrCloseCards: () -> Unit,
+    isCardsOpen: Boolean,
+    toggleCardsExpand: (Boolean) -> Unit,
     openDialog: (Boolean) -> Unit
 ) {
     var isOpenDropdown by remember { mutableStateOf(false) }
@@ -216,8 +234,14 @@ private fun AppBar(
                     expanded = isOpenDropdown,
                     onDismissRequest = { isOpenDropdown = false}
                 ) {
-                    DropdownMenuItem(onClick = expandOrCloseCards) {
-                        Text("Open All")
+                    if(!isCardsOpen) {
+                        DropdownMenuItem(onClick = { toggleCardsExpand(true) } ) {
+                            Text("Open All")
+                        }
+                    } else {
+                        DropdownMenuItem(onClick = { toggleCardsExpand(false) } ) {
+                            Text("Close All")
+                        }
                     }
                     DropdownMenuItem(
                         onClick = { openDialog(true) },
@@ -239,7 +263,7 @@ fun CardsScreenPreview() {
     val wordsList: List<Word> = List(20) {
         Word(it, "Text $it".repeat((1..5).random()), "テキスト $it", 0)
     }
-    val uiState = CardsUiState(isLoading = false, isCardsOpen = false, words = wordsList)
+    val uiState = CardsUiState(isLoading = false, isCardsOpen = true, words = wordsList)
     QuickWordbookTheme {
         CardsBody(
             uiState = uiState,
@@ -247,7 +271,7 @@ fun CardsScreenPreview() {
             onAddFabClicked = {},
             onEditClicked = {},
             onDeleteWord = {},
-            expandOrCloseCards = {},
+            toggleCardsExpand = {},
             onDeleteAllWords = {}
         )
     }
