@@ -61,15 +61,19 @@ class AddCardViewModel @Inject constructor(
     }
 
     fun changeTargetLanguage() {
-        when(_uiState.value.targetLanguage) {
-            Languages.ENGLISH -> _uiState.update { it.copy(
-                sourceLanguages = Languages.ENGLISH,
-                targetLanguage = Languages.JAPANESE
-            ) }
-            Languages.JAPANESE -> _uiState.update { it.copy(
-                sourceLanguages = Languages.JAPANESE,
-                targetLanguage = Languages.ENGLISH
-            ) }
+        when (_uiState.value.targetLanguage) {
+            Languages.ENGLISH -> _uiState.update {
+                it.copy(
+                    sourceLanguages = Languages.ENGLISH,
+                    targetLanguage = Languages.JAPANESE
+                )
+            }
+            Languages.JAPANESE -> _uiState.update {
+                it.copy(
+                    sourceLanguages = Languages.JAPANESE,
+                    targetLanguage = Languages.ENGLISH
+                )
+            }
         }
     }
 
@@ -86,11 +90,13 @@ class AddCardViewModel @Inject constructor(
                     targetLanguages = _uiState.value.targetLanguage
                 )
                 val targetText = response.body()?.text ?: ""
-                _uiState.update { it.copy(
-                    targetText = targetText,
-                    isTargetTextLoading = false
-                ) }
-            } catch(e: Exception) {
+                _uiState.update {
+                    it.copy(
+                        targetText = targetText,
+                        isTargetTextLoading = false
+                    )
+                }
+            } catch (e: Exception) {
                 // TODO Error handling
                 println(e)
             }

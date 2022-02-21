@@ -5,5 +5,5 @@ import androidx.room.RoomDatabase
 
 @Database(entities = [Word::class], version = 1, exportSchema = false)
 abstract class QuickWordbookDatabase : RoomDatabase() {
-    abstract fun wordsDao() : WordsDao
+    abstract fun wordsDao(): WordsDao
 }

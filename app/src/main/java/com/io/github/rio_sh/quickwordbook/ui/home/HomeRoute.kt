@@ -15,7 +15,7 @@ fun HomeRoute(
     onAddFabClicked: () -> Unit,
     onCardsFabClicked: () -> Unit,
     onEditClicked: (wordId: Int) -> Unit,
-){
+) {
     val uiState by homeViewModel.uiState.collectAsState()
 
     HomeBody(

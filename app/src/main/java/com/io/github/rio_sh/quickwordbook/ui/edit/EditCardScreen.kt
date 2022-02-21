@@ -21,7 +21,7 @@ import com.io.github.rio_sh.quickwordbook.ui.theme.QuickWordbookTheme
 fun EditCardBody(
     uiState: EditCardUiState,
     onTranslateText: () -> Unit,
-    onSourceTextChanged:(String) -> Unit,
+    onSourceTextChanged: (String) -> Unit,
     onTargetTextChanged: (String) -> Unit,
     onTargetLanguageChanged: () -> Unit,
     onToggleSwitch: (Boolean) -> Unit,
@@ -30,7 +30,7 @@ fun EditCardBody(
 ) {
     Scaffold(
         topBar = {
-            Row(horizontalArrangement = Arrangement.Start){
+            Row(horizontalArrangement = Arrangement.Start) {
                 IconButton(onClick = { onBackClicked() }) {
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
@@ -61,7 +61,7 @@ fun EditCardBody(
                 onToggleSwitch = onToggleSwitch,
                 onDoneButtonClicked = onEditButtonClicked
             ) {
-               Text(stringResource(R.string.edit))
+                Text(stringResource(R.string.edit))
             }
             Spacer(modifier = Modifier.padding(32.dp))
         }

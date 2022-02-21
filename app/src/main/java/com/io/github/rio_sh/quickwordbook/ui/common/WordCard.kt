@@ -63,7 +63,6 @@ fun WordCard(
         Column(
             modifier = Modifier
                 .fillMaxWidth(1f),
-                //.width(IntrinsicSize.Max),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Row(
@@ -101,7 +100,7 @@ fun WordCard(
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
                             }
-                            DropdownMenuItem(onClick = { isOpenDialog = true}) {
+                            DropdownMenuItem(onClick = { isOpenDialog = true }) {
                                 Text(
                                     text = stringResource(R.string.delete),
                                     color = MaterialTheme.colorScheme.onSurface
@@ -126,7 +125,7 @@ fun WordCard(
                     )
                 }
             }
-            if(isExpandedCard){
+            if (isExpandedCard) {
                 Icon(
                     modifier = Modifier.clickable { isExpandedCard = !isExpandedCard },
                     imageVector = Icons.Filled.ExpandLess,

@@ -9,7 +9,7 @@ import javax.inject.Inject
 class WordsLocalDataSource @Inject constructor(
     private val wordsDao: WordsDao,
     @IoDispatcher private val ioDispatcher: CoroutineDispatcher
-){
+) {
     suspend fun insetWord(word: Word) = withContext(ioDispatcher) {
         wordsDao.insertWord(word)
     }
@@ -35,7 +35,7 @@ class WordsLocalDataSource @Inject constructor(
     }
 
     fun observeLastEditFive(): Flow<List<Word>> {
-       return wordsDao.observeLastEditFive()
+        return wordsDao.observeLastEditFive()
     }
 
 }

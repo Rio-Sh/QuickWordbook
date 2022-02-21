@@ -21,7 +21,8 @@ class QuickWordbookActivity : ComponentActivity() {
             // Update the status bars to be translucent
             val systemUiController = rememberSystemUiController()
             val useDarkIcons = !isSystemInDarkTheme()
-            val statusBarColor = if (!isSystemInDarkTheme()) md_theme_light_surfaceVariant else md_theme_dark_surfaceVariant
+            val statusBarColor =
+                if (!isSystemInDarkTheme()) md_theme_light_surfaceVariant else md_theme_dark_surfaceVariant
             SideEffect {
                 systemUiController.setStatusBarColor(statusBarColor, darkIcons = useDarkIcons)
             }

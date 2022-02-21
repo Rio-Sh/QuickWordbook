@@ -34,7 +34,7 @@ fun HomeBody(
     Scaffold(
         topBar = {
             Row {
-                if(!isSystemInDarkTheme()){
+                if (!isSystemInDarkTheme()) {
                     Image(
                         modifier = Modifier.padding(8.dp),
                         painter = painterResource(id = R.drawable.ic_title),
@@ -57,7 +57,7 @@ fun HomeBody(
                 SmallFloatingActionButton(
                     modifier = Modifier.padding(bottom = 8.dp),
                     onClick = { onCardsFabClicked() }
-                ){
+                ) {
                     Icon(
                         imageVector = Icons.Rounded.ViewAgenda,
                         contentDescription = ""
@@ -80,11 +80,11 @@ fun HomeBody(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Spacer(modifier = Modifier.padding(24.dp))
-            if(uiState is HomeUiState.HasWords){
+            if (uiState is HomeUiState.HasWords) {
                 Column(
                     modifier = Modifier.fillMaxWidth(1f),
                 ) {
-                    for ((index, word) in uiState.words.withIndex()){
+                    for ((index, word) in uiState.words.withIndex()) {
                         HomeWordCard(
                             word = word,
                             index = index,
@@ -112,12 +112,12 @@ fun HomeWordCard(
     onEditClicked: (wordId: Int) -> Unit,
     onDeleteWord: (wordId: Int) -> Unit
 ) {
-    Row(modifier = Modifier.padding(8.dp)){
+    Row(modifier = Modifier.padding(8.dp)) {
         val stagger = if (index % 2 == 0) 72.dp else 16.dp
         Spacer(modifier = Modifier.width(stagger))
         WordCard(
             word = word,
-            navigationToDetail =  { onEditClicked(word.wordId) },
+            navigationToDetail = { onEditClicked(word.wordId) },
             onDeleteWord = { onDeleteWord(word.wordId) }
         )
     }
@@ -129,12 +129,14 @@ fun HomeWordCard(
 @Preview(uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun HomePreview() {
-    val wordsList: List<Word> = List(5) { Word(
-        wordId = it,
-        textSource = "Text $it",
-        textTarget = "テキスト　$it",
-        lastEdit = 0L
-    ) }
+    val wordsList: List<Word> = List(5) {
+        Word(
+            wordId = it,
+            textSource = "Text $it",
+            textTarget = "テキスト　$it",
+            lastEdit = 0L
+        )
+    }
     QuickWordbookTheme {
         HomeBody(
             uiState = HomeUiState.HasWords(

@@ -21,7 +21,7 @@ import com.io.github.rio_sh.quickwordbook.ui.theme.QuickWordbookTheme
 fun AddCardBody(
     uiState: AddCardUiState,
     onTranslateText: () -> Unit,
-    onSourceTextChanged:(String) -> Unit,
+    onSourceTextChanged: (String) -> Unit,
     onTargetTextChanged: (String) -> Unit,
     onAddButtonClicked: () -> Unit,
     onBackClicked: () -> Unit,
@@ -30,7 +30,7 @@ fun AddCardBody(
 ) {
     Scaffold(
         topBar = {
-            Row(horizontalArrangement = Arrangement.Start){
+            Row(horizontalArrangement = Arrangement.Start) {
                 IconButton(onClick = { onBackClicked() }) {
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,

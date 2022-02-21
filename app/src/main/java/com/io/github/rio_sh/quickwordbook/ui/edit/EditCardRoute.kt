@@ -6,11 +6,11 @@ import androidx.compose.runtime.*
 fun EditCardRoute(
     editCardViewModel: EditCardViewModel,
     wordId: Int,
-    onEditWordDone:() -> Unit,
+    onEditWordDone: () -> Unit,
     onBackClicked: () -> Unit,
 ) {
     val uiSate by editCardViewModel.uiState.collectAsState()
-    LaunchedEffect(key1 = true){
+    LaunchedEffect(key1 = true) {
         editCardViewModel.setWord(wordId = wordId)
     }
 
@@ -23,7 +23,8 @@ fun EditCardRoute(
         onToggleSwitch = { editCardViewModel.toggleSwitch(it) },
         onEditButtonClicked = {
             editCardViewModel.upDateWord()
-            onEditWordDone() },
+            onEditWordDone()
+        },
         onBackClicked = { onBackClicked() }
     )
 

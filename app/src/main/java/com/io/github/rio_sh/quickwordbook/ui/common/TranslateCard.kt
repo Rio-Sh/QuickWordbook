@@ -135,7 +135,7 @@ fun TranslateTextField(
             },
             singleLine = true,
             trailingIcon = {
-                if(isLoading) CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
+                if (isLoading) CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
             },
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
             keyboardActions = KeyboardActions(onDone = { localFocusManager.clearFocus() })
