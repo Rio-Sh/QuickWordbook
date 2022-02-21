@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey
  * @param lastEdit time of last Edit. type is Long and get from [System.currentTimeMillis]
  */
 @Entity(tableName = "words")
-data class Word (
+data class Word(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "word_id")
     var wordId: Int = 0,
@@ -24,4 +24,4 @@ data class Word (
 
     @ColumnInfo(name = "last_edit")
     var lastEdit: Long = System.currentTimeMillis()
- )
+)

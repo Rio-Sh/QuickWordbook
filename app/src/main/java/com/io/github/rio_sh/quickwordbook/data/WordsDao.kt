@@ -19,7 +19,7 @@ interface WordsDao {
      * @return The number of rows affected. It's always to be 1.
      */
     @Query("DELETE FROM words WHERE word_id = :wordId")
-    suspend fun deleteWordById(wordId: Int) : Int
+    suspend fun deleteWordById(wordId: Int): Int
 
     @Query("DELETE FROM words")
     suspend fun deleteAllWords()

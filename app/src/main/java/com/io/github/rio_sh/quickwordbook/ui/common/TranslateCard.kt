@@ -1,5 +1,6 @@
 package com.io.github.rio_sh.quickwordbook.ui.common
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -12,8 +13,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import com.io.github.rio_sh.quickwordbook.R
 import com.io.github.rio_sh.quickwordbook.network.Languages
 import com.io.github.rio_sh.quickwordbook.ui.theme.Shapes
 
@@ -34,7 +37,8 @@ fun TranslateCard(
 ) {
     Surface(
         shape = Shapes.medium,
-        color = MaterialTheme.colorScheme.primaryContainer
+        color = MaterialTheme.colorScheme.secondaryContainer,
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onSurfaceVariant)
     ) {
         Column(
             modifier = Modifier
@@ -56,7 +60,7 @@ fun TranslateCard(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text("翻訳切り替え")
+                    Text(stringResource(R.string.switch_translation))
                     Switch(
                         checked = isSwitchChecked,
                         onCheckedChange = {
@@ -66,10 +70,10 @@ fun TranslateCard(
                     )
                     when (targetLanguage) {
                         Languages.ENGLISH -> {
-                            Text(text = "英訳")
+                            Text(text = stringResource(R.string.translate_to_english))
                         }
                         Languages.JAPANESE -> {
-                            Text(text = "和訳")
+                            Text(text = stringResource(R.string.translate_to_japanese))
                         }
                     }
                 }
@@ -108,7 +112,7 @@ fun TranslateTextField(
             textStyle = MaterialTheme.typography.bodyMedium,
             placeholder = {
                 Text(
-                    text = "Input Text",
+                    text = stringResource(R.string.input_text),
                     modifier = Modifier.alpha(0.3f),
                     color = MaterialTheme.colorScheme.onPrimaryContainer
                 )
@@ -124,14 +128,14 @@ fun TranslateTextField(
             textStyle = MaterialTheme.typography.bodyMedium,
             placeholder = {
                 Text(
-                    text = "After Translate",
+                    text = stringResource(R.string.after_translation),
                     modifier = Modifier.alpha(0.3f),
                     color = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             },
             singleLine = true,
             trailingIcon = {
-                if(isLoading) CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
+                if (isLoading) CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
             },
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
             keyboardActions = KeyboardActions(onDone = { localFocusManager.clearFocus() })

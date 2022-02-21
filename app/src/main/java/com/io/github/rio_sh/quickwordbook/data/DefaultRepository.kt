@@ -38,7 +38,6 @@ class DefaultRepository @Inject constructor(
         }
     }
 
-
     suspend fun deleteAllWord() {
         coroutineScope {
             launch { wordsLocalDataSource.deleteAllWord() }
@@ -52,7 +51,7 @@ class DefaultRepository @Inject constructor(
     }
 
     fun observeAllWords(): Flow<List<Word>> {
-        return  wordsLocalDataSource.observeAllWords()
+        return wordsLocalDataSource.observeAllWords()
     }
 
     fun observeLastEditFive(): Flow<List<Word>> {
@@ -63,7 +62,7 @@ class DefaultRepository @Inject constructor(
         sourceText: String,
         sourceLanguage: Languages,
         targetLanguages: Languages
-    ) : Response<ResponseText> {
+    ): Response<ResponseText> {
         return gasService.getTranslateResponse(
             sourceText,
             sourceLanguage.languageCode,

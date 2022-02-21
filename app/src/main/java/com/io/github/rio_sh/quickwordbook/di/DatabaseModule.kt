@@ -24,7 +24,7 @@ class DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideQuickWordBookDatabase(@ApplicationContext appContext : Context): QuickWordbookDatabase {
+    fun provideQuickWordBookDatabase(@ApplicationContext appContext: Context): QuickWordbookDatabase {
         return Room.databaseBuilder(
             appContext,
             QuickWordbookDatabase::class.java,

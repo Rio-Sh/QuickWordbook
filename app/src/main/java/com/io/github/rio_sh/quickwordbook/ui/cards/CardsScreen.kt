@@ -17,10 +17,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.*
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.navigationBarsPadding
 import com.google.accompanist.insets.statusBarsPadding
+import com.io.github.rio_sh.quickwordbook.R
 import com.io.github.rio_sh.quickwordbook.data.Word
 import com.io.github.rio_sh.quickwordbook.ui.common.WordCard
 import com.io.github.rio_sh.quickwordbook.ui.theme.QuickWordbookTheme
@@ -40,12 +43,14 @@ fun CardsBody(
 ) {
     var isOpenDialog by remember { mutableStateOf(false) }
     Scaffold(
-        topBar = { AppBar(
-            onBackClicked = onBackClicked,
-            isCardsOpen = uiState.isCardsOpen,
-            toggleCardsExpand =  toggleCardsExpand,
-            openDialog = { isOpenDialog = it }
-        ) },
+        topBar = {
+            AppBar(
+                onBackClicked = onBackClicked,
+                isCardsOpen = uiState.isCardsOpen,
+                toggleCardsExpand = toggleCardsExpand,
+                openDialog = { isOpenDialog = it }
+            )
+        },
         floatingActionButton = {
             FloatingActionButton(
                 onClick = { onAddFabClicked() },
@@ -56,25 +61,25 @@ fun CardsBody(
                     contentDescription = ""
                 )
             }
-        }
+        },
+        containerColor = MaterialTheme.colorScheme.surfaceVariant
     ) { innerPadding ->
         Column(
-            modifier = Modifier
-                .statusBarsPadding()
-                .navigationBarsPadding()
-                .padding(innerPadding)
+            modifier = Modifier.padding(innerPadding)
         ) {
-            Spacer(modifier = Modifier.padding(56.dp))
+            Spacer(modifier = Modifier.padding(48.dp))
             Text(
-                text = "Your Wordbook",
-                style = MaterialTheme.typography.headlineSmall
+                modifier = Modifier.padding(16.dp),
+                text = stringResource(R.string.your_wordbook),
+                style = MaterialTheme.typography.headlineMedium,
+                fontWeight = FontWeight.Bold
             )
             StaggerLayout(
                 modifier = Modifier
                     .horizontalScroll(rememberScrollState())
             ) {
                 uiState.words.forEach { word ->
-                    if(!uiState.isCardsOpen){
+                    if (!uiState.isCardsOpen) {
                         WordCard(
                             modifier = Modifier.padding(
                                 start = 8.dp,
@@ -104,7 +109,7 @@ fun CardsBody(
                 }
             }
         }
-        if(isOpenDialog) {
+        if (isOpenDialog) {
             AlertDialog(
                 onDeleteAllWords = onDeleteAllWords,
                 openDialog = { isOpenDialog = it }
@@ -127,8 +132,8 @@ private fun AlertDialog(
                 contentDescription = null
             )
         },
-        title = { Text(text = "全ての単語を削除しますか？") },
-        text = { Text(text = "この操作は取り消せません") },
+        title = { Text(text = stringResource(R.string.do_you_delete_all_words)) },
+        text = { Text(text = stringResource(R.string.cant_cancel_this_operation)) },
         confirmButton = {
             TextButton(
                 onClick = {
@@ -140,7 +145,7 @@ private fun AlertDialog(
                     contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             ) {
-                Text("削除")
+                Text(stringResource(R.string.delete))
             }
         },
         dismissButton = {
@@ -148,7 +153,7 @@ private fun AlertDialog(
                 onClick = { openDialog(false) },
                 colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.onSurface)
             ) {
-                Text(text = "キャンセル")
+                Text(text = stringResource(R.string.cancel))
             }
         }
     )
@@ -179,13 +184,14 @@ private fun StaggerLayout(
         }
 
         // Grid's of rows
-        val width = rowWidths.maxOrNull()?.coerceIn(constraints.minWidth, constraints.maxWidth) ?: constraints.minWidth
+        val width = rowWidths.maxOrNull()?.coerceIn(constraints.minWidth, constraints.maxWidth)
+            ?: constraints.minWidth
         val height = rowHeights.sum().coerceIn(constraints.minHeight, constraints.maxHeight)
 
         // y co-ord of rows
         val rowY = IntArray(rows) { 0 }
         for (i in 1 until rows) {
-            rowY[i] = rowY[i - 1] + rowHeights[i -1]
+            rowY[i] = rowY[i - 1] + rowHeights[i - 1]
         }
         layout(width, height) {
             val rowX = IntArray(rows) { 0 }
@@ -212,10 +218,8 @@ private fun AppBar(
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxWidth()
-            .statusBarsPadding()
-    ){
+        modifier = Modifier.fillMaxWidth()
+    ) {
         IconButton(onClick = onBackClicked) {
             Icon(
                 imageVector = Icons.Filled.ArrowBack,
@@ -231,23 +235,27 @@ private fun AppBar(
             }
             if (isOpenDropdown) {
                 DropdownMenu(
+                    modifier = Modifier.background(MaterialTheme.colorScheme.surface),
                     expanded = isOpenDropdown,
-                    onDismissRequest = { isOpenDropdown = false}
+                    onDismissRequest = { isOpenDropdown = false }
                 ) {
-                    if(!isCardsOpen) {
-                        DropdownMenuItem(onClick = { toggleCardsExpand(true) } ) {
-                            Text("Open All")
+                    if (!isCardsOpen) {
+                        DropdownMenuItem(onClick = { toggleCardsExpand(true) }) {
+                            Text(stringResource(R.string.open_all))
                         }
                     } else {
-                        DropdownMenuItem(onClick = { toggleCardsExpand(false) } ) {
-                            Text("Close All")
+                        DropdownMenuItem(onClick = { toggleCardsExpand(false) }) {
+                            Text(stringResource(R.string.close_all))
                         }
                     }
                     DropdownMenuItem(
                         onClick = { openDialog(true) },
                         modifier = Modifier.background(MaterialTheme.colorScheme.error),
                     ) {
-                        Text("全て削除", color = MaterialTheme.colorScheme.onError)
+                        Text(
+                            stringResource(R.string.delete_all),
+                            color = MaterialTheme.colorScheme.onError
+                        )
                     }
                 }
             }

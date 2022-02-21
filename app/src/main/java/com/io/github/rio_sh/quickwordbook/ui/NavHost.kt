@@ -53,9 +53,11 @@ fun NavHost(
             val cardsViewModel = hiltViewModel<CardsViewModel>()
             CardsRoute(
                 cardsViewModel = cardsViewModel,
-                onBackClicked = { navController.navigate(QuickWordbookScreen.Home.name) {
-                    popUpTo(navController.graph.findStartDestination().id)
-                } },
+                onBackClicked = {
+                    navController.navigate(QuickWordbookScreen.Home.name) {
+                        popUpTo(navController.graph.findStartDestination().id)
+                    }
+                },
                 onAddFabClicked = { navController.navigate(QuickWordbookScreen.AddCard.name) },
                 onEditClicked = { wordId -> navigateToEdit(wordId, navController) },
             )
@@ -63,7 +65,7 @@ fun NavHost(
 
         composable(
             route = "${QuickWordbookScreen.EditCard.name}/{wordId}",
-            arguments = listOf( navArgument("wordId") {
+            arguments = listOf(navArgument("wordId") {
                 type = NavType.IntType
             })
         ) { backStackEntry ->

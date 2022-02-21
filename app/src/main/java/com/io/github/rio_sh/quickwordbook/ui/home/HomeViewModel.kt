@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-sealed interface HomeUiState{
+sealed interface HomeUiState {
     val isLoading: Boolean
 
     data class NoWords(
@@ -25,7 +25,7 @@ sealed interface HomeUiState{
 private data class HomeViewModelState(
     val isLoading: Boolean = false,
     val words: List<Word> = emptyList()
-){
+) {
     fun toUiState(): HomeUiState =
         if (words.isEmpty()) {
             HomeUiState.NoWords(

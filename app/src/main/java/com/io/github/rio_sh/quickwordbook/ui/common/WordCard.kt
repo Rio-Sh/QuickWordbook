@@ -1,6 +1,10 @@
 package com.io.github.rio_sh.quickwordbook.ui.common
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -18,10 +22,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.io.github.rio_sh.quickwordbook.R
 import com.io.github.rio_sh.quickwordbook.data.Word
 import com.io.github.rio_sh.quickwordbook.ui.theme.QuickWordbookTheme
 import com.io.github.rio_sh.quickwordbook.ui.theme.Shapes
@@ -37,8 +43,8 @@ import com.io.github.rio_sh.quickwordbook.ui.theme.Shapes
 fun WordCard(
     modifier: Modifier = Modifier,
     word: Word,
-    backgroundColor: Color = MaterialTheme.colorScheme.primaryContainer,
-    contentColor: Color = MaterialTheme.colorScheme.onPrimaryContainer,
+    backgroundColor: Color = MaterialTheme.colorScheme.secondaryContainer,
+    contentColor: Color = MaterialTheme.colorScheme.onSecondaryContainer,
     navigationToDetail: (wordId: Int) -> Unit,
     expanded: Boolean = false,
     onDeleteWord: (wordId: Int) -> Unit
@@ -51,10 +57,12 @@ fun WordCard(
         modifier = modifier,
         shape = Shapes.medium,
         backgroundColor = backgroundColor,
-        contentColor = contentColor
+        contentColor = contentColor,
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.onSurfaceVariant)
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth(1f),
+            modifier = Modifier
+                .fillMaxWidth(1f),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Row(
@@ -65,7 +73,7 @@ fun WordCard(
                 Spacer(modifier = Modifier.size(4.dp))
                 Text(
                     text = word.textSource,
-                    modifier = Modifier .padding(start = 16.dp),
+                    modifier = Modifier.padding(start = 16.dp),
                     color = contentColor,
                     style = MaterialTheme.typography.titleMedium,
                     overflow = TextOverflow.Ellipsis,
@@ -87,17 +95,25 @@ fun WordCard(
                             onDismissRequest = { isOpenDropdown = false }
                         ) {
                             DropdownMenuItem(onClick = { navigationToDetail(word.wordId) }) {
-                                Text("編集", color = MaterialTheme.colorScheme.onSurface)
+                                Text(
+                                    text = stringResource(R.string.edit),
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
                             }
-                            DropdownMenuItem(onClick = { isOpenDialog = true}) {
-                                Text("削除", color = MaterialTheme.colorScheme.onSurface)
+                            DropdownMenuItem(onClick = { isOpenDialog = true }) {
+                                Text(
+                                    text = stringResource(R.string.delete),
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
                             }
                         }
                     }
                 }
             }
-            // TODO Add Animation
-            if (isExpandedCard) {
+            AnimatedVisibility(
+                visible = isExpandedCard,
+                enter = expandVertically(expandFrom = Alignment.Top),
+            ) {
                 Column(horizontalAlignment = Alignment.CenterHorizontally) {
                     Text(
                         word.textTarget,
@@ -107,15 +123,17 @@ fun WordCard(
                         overflow = TextOverflow.Ellipsis,
                         maxLines = 1,
                     )
-                    Icon(
-                        modifier = Modifier.clickable { isExpandedCard = false },
-                        imageVector = Icons.Filled.ExpandLess,
-                        contentDescription = null
-                    )
                 }
+            }
+            if (isExpandedCard) {
+                Icon(
+                    modifier = Modifier.clickable { isExpandedCard = !isExpandedCard },
+                    imageVector = Icons.Filled.ExpandLess,
+                    contentDescription = null
+                )
             } else {
                 Icon(
-                    modifier = Modifier.clickable { isExpandedCard = true },
+                    modifier = Modifier.clickable { isExpandedCard = !isExpandedCard },
                     imageVector = Icons.Filled.ExpandMore,
                     contentDescription = null
                 )
@@ -144,8 +162,8 @@ private fun AlertDialog(
                 contentDescription = null
             )
         },
-        title = { Text(text = "この単語を削除しますか？") },
-        text = { Text(text = "この操作は取り消せません") },
+        title = { Text(text = stringResource(R.string.do_you_remove_this_word)) },
+        text = { Text(text = stringResource(R.string.cant_cancel_this_operation)) },
         confirmButton = {
             TextButton(
                 onClick = {
@@ -157,7 +175,7 @@ private fun AlertDialog(
                     contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 )
             ) {
-                Text("削除")
+                Text(stringResource(R.string.delete))
             }
         },
         dismissButton = {
@@ -165,7 +183,7 @@ private fun AlertDialog(
                 onClick = { openDialog(false) },
                 colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.onSurface)
             ) {
-                Text(text = "キャンセル")
+                Text(text = stringResource(R.string.cancel))
             }
         }
     )

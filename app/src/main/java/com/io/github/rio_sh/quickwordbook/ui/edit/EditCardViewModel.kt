@@ -39,7 +39,7 @@ class EditCardViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(EditCardUiState())
     val uiState: StateFlow<EditCardUiState> = _uiState.asStateFlow()
 
-    fun upDateWord(){
+    fun upDateWord() {
         viewModelScope.launch {
             defaultRepository.updateWord(
                 Word(
@@ -54,7 +54,13 @@ class EditCardViewModel @Inject constructor(
     fun setWord(wordId: Int) {
         viewModelScope.launch {
             val word = defaultRepository.getWordById(wordId)
-            _uiState.update { it.copy(word = word, sourceText = word.textSource, targetText = word.textTarget) }
+            _uiState.update {
+                it.copy(
+                    word = word,
+                    sourceText = word.textSource,
+                    targetText = word.textTarget
+                )
+            }
         }
     }
 
@@ -71,15 +77,19 @@ class EditCardViewModel @Inject constructor(
     }
 
     fun changeTargetLanguage() {
-        when(_uiState.value.targetLanguage) {
-            Languages.ENGLISH -> _uiState.update { it.copy(
-                sourceLanguages = Languages.ENGLISH,
-                targetLanguage = Languages.JAPANESE
-            ) }
-            Languages.JAPANESE -> _uiState.update { it.copy(
-                sourceLanguages = Languages.JAPANESE,
-                targetLanguage = Languages.ENGLISH
-            ) }
+        when (_uiState.value.targetLanguage) {
+            Languages.ENGLISH -> _uiState.update {
+                it.copy(
+                    sourceLanguages = Languages.ENGLISH,
+                    targetLanguage = Languages.JAPANESE
+                )
+            }
+            Languages.JAPANESE -> _uiState.update {
+                it.copy(
+                    sourceLanguages = Languages.JAPANESE,
+                    targetLanguage = Languages.ENGLISH
+                )
+            }
         }
     }
 
@@ -96,11 +106,13 @@ class EditCardViewModel @Inject constructor(
                     targetLanguages = _uiState.value.targetLanguage
                 )
                 val targetText = response.body()?.text ?: ""
-                _uiState.update { it.copy(
-                    targetText = targetText,
-                    isTargetTextLoading = false
-                ) }
-            } catch(e: Exception) {
+                _uiState.update {
+                    it.copy(
+                        targetText = targetText,
+                        isTargetTextLoading = false
+                    )
+                }
+            } catch (e: Exception) {
                 // TODO Error handling
                 println(e)
             }

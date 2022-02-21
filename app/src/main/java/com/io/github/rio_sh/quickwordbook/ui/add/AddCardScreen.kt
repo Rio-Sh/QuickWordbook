@@ -8,9 +8,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.statusBarsPadding
+import com.io.github.rio_sh.quickwordbook.R
 import com.io.github.rio_sh.quickwordbook.ui.common.TranslateCard
 import com.io.github.rio_sh.quickwordbook.ui.theme.QuickWordbookTheme
 
@@ -19,7 +21,7 @@ import com.io.github.rio_sh.quickwordbook.ui.theme.QuickWordbookTheme
 fun AddCardBody(
     uiState: AddCardUiState,
     onTranslateText: () -> Unit,
-    onSourceTextChanged:(String) -> Unit,
+    onSourceTextChanged: (String) -> Unit,
     onTargetTextChanged: (String) -> Unit,
     onAddButtonClicked: () -> Unit,
     onBackClicked: () -> Unit,
@@ -28,10 +30,7 @@ fun AddCardBody(
 ) {
     Scaffold(
         topBar = {
-            Row(
-                modifier = Modifier.statusBarsPadding(),
-                horizontalArrangement = Arrangement.Start
-            ){
+            Row(horizontalArrangement = Arrangement.Start) {
                 IconButton(onClick = { onBackClicked() }) {
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,
@@ -40,6 +39,7 @@ fun AddCardBody(
                 }
             }
         },
+        containerColor = MaterialTheme.colorScheme.surfaceVariant
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -61,7 +61,7 @@ fun AddCardBody(
                 onToggleSwitch = onToggleSwitch,
                 onDoneButtonClicked = onAddButtonClicked
             ) {
-                Text("追加")
+                Text(stringResource(R.string.add))
             }
             Spacer(modifier = Modifier.padding(32.dp))
         }

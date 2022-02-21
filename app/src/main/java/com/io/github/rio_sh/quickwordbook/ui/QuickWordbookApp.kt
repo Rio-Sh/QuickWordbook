@@ -13,9 +13,7 @@ fun QuickWordbookApp() {
     QuickWordbookTheme {
         ProvideWindowInsets {
             val navController = rememberNavController()
-            Surface {
-                NavHost(navController = navController, modifier = Modifier.statusBarsPadding())
-            }
+            NavHost(navController = navController, modifier = Modifier.statusBarsPadding())
         }
     }
 }
