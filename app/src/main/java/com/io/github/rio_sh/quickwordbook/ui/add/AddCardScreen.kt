@@ -30,10 +30,7 @@ fun AddCardBody(
 ) {
     Scaffold(
         topBar = {
-            Row(
-                modifier = Modifier.statusBarsPadding(),
-                horizontalArrangement = Arrangement.Start
-            ){
+            Row(horizontalArrangement = Arrangement.Start){
                 IconButton(onClick = { onBackClicked() }) {
                     Icon(
                         imageVector = Icons.Filled.ArrowBack,

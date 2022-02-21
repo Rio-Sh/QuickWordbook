@@ -63,11 +63,7 @@ fun CardsBody(
         containerColor = MaterialTheme.colorScheme.surfaceVariant
     ) { innerPadding ->
         Column(
-            modifier = Modifier
-                .statusBarsPadding()
-                .navigationBarsPadding()
-                .padding(innerPadding)
-        ) {
+            modifier = Modifier.padding(innerPadding)) {
             Spacer(modifier = Modifier.padding(48.dp))
             Text(
                 modifier = Modifier.padding(16.dp),
@@ -218,9 +214,7 @@ private fun AppBar(
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier
-            .fillMaxWidth()
-            .statusBarsPadding()
+        modifier = Modifier.fillMaxWidth()
     ){
         IconButton(onClick = onBackClicked) {
             Icon(
@@ -237,6 +231,7 @@ private fun AppBar(
             }
             if (isOpenDropdown) {
                 DropdownMenu(
+                    modifier = Modifier.background(MaterialTheme.colorScheme.surface),
                     expanded = isOpenDropdown,
                     onDismissRequest = { isOpenDropdown = false}
                 ) {

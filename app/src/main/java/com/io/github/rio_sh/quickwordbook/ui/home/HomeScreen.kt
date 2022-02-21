@@ -32,18 +32,17 @@ fun HomeBody(
     onDeleteWord: (wordId: Int) -> Unit
 ) {
     Scaffold(
-        // TODO replace title
         topBar = {
-            Row(modifier = Modifier
-                .padding(8.dp)
-                .navigationBarsPadding()) {
+            Row {
                 if(!isSystemInDarkTheme()){
                     Image(
+                        modifier = Modifier.padding(8.dp),
                         painter = painterResource(id = R.drawable.ic_title),
                         contentDescription = null,
                     )
                 } else {
                     Image(
+                        modifier = Modifier.padding(8.dp),
                         painter = painterResource(id = R.drawable.ic_title_dark),
                         contentDescription = null,
                     )
