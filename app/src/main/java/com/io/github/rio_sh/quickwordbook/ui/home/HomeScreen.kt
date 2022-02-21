@@ -1,8 +1,9 @@
 package com.io.github.rio_sh.quickwordbook.ui.home
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ModeEdit
 import androidx.compose.material.icons.rounded.ViewAgenda
@@ -10,13 +11,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.google.accompanist.insets.navigationBarsPadding
 import com.io.github.rio_sh.quickwordbook.R
 import com.io.github.rio_sh.quickwordbook.data.Word
@@ -35,16 +34,21 @@ fun HomeBody(
     Scaffold(
         // TODO replace title
         topBar = {
-            TopAppBar(
-                title = { Text(
-                    text =  "QuickWordbook",
-                    fontSize = 24.sp,
-                    fontStyle = FontStyle.Italic,
-                    fontWeight = FontWeight.ExtraBold
-                ) },
-                backgroundColor = Color.Transparent,
-                elevation = 0.dp
-            )
+            Row(modifier = Modifier
+                .padding(8.dp)
+                .navigationBarsPadding()) {
+                if(!isSystemInDarkTheme()){
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_title),
+                        contentDescription = null,
+                    )
+                } else {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_title_dark),
+                        contentDescription = null,
+                    )
+                }
+            }
         },
         floatingActionButton = {
             Column(
