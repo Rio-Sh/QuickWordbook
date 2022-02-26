@@ -4,6 +4,8 @@ import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ModeEdit
 import androidx.compose.material.icons.rounded.ViewAgenda
@@ -75,6 +77,7 @@ fun HomeBody(
     ) { innerPadding ->
         Column(
             modifier = Modifier
+                .verticalScroll(rememberScrollState())
                 .fillMaxSize(1f)
                 .padding(innerPadding),
             horizontalAlignment = Alignment.CenterHorizontally,

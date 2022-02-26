@@ -1,13 +1,17 @@
 package com.io.github.rio_sh.quickwordbook.ui.common
 
+import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.*
 import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Switch
-import androidx.compose.material.TextField
-import androidx.compose.material3.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -15,9 +19,11 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.io.github.rio_sh.quickwordbook.R
 import com.io.github.rio_sh.quickwordbook.network.Languages
+import com.io.github.rio_sh.quickwordbook.ui.theme.QuickWordbookTheme
 import com.io.github.rio_sh.quickwordbook.ui.theme.Shapes
 
 @Composable
@@ -119,7 +125,8 @@ fun TranslateTextField(
             },
             singleLine = true,
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-            keyboardActions = KeyboardActions(onDone = { localFocusManager.clearFocus() })
+            keyboardActions = KeyboardActions(onDone = { localFocusManager.clearFocus() }),
+            colors = TextFieldDefaults.textFieldColors(textColor = MaterialTheme.colorScheme.onSecondaryContainer)
         )
         Spacer(modifier = Modifier.padding(4.dp))
         TextField(
@@ -138,7 +145,26 @@ fun TranslateTextField(
                 if (isLoading) CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
             },
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-            keyboardActions = KeyboardActions(onDone = { localFocusManager.clearFocus() })
+            keyboardActions = KeyboardActions(onDone = { localFocusManager.clearFocus() }),
+            colors = TextFieldDefaults.textFieldColors(textColor = MaterialTheme.colorScheme.onSecondaryContainer)
         )
+    }
+}
+
+@Preview
+@Preview(uiMode = UI_MODE_NIGHT_YES)
+@Composable
+fun TextFieldPrev() {
+     QuickWordbookTheme {
+         Surface {
+             TranslateTextField(
+                 sourceText = "text",
+                 targetText = "テキスト",
+                 isLoading = false,
+                 onSourceTextChanged = {},
+                 onTargetTextChanged = {},
+                 onTranslateText = {},
+             )
+         }
     }
 }
