@@ -127,6 +127,7 @@ class EditCardViewModel @Inject constructor(
         }
     }
 
+    // TODO add no internet connection exception handling
     /**
      * Call GasApi using current source text state.
      * If failed, add message to ui state.
