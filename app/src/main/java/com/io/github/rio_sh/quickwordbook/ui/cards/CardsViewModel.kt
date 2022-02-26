@@ -12,7 +12,8 @@ import javax.inject.Inject
 data class CardsUiState(
     val isLoading: Boolean = false,
     val isCardsOpen: Boolean = false,
-    val words: List<Word> = emptyList()
+    val words: List<Word> = emptyList(),
+    val isWordsLoadingFailed: Boolean = false
 )
 
 @HiltViewModel
@@ -26,9 +27,11 @@ class CardsViewModel @Inject constructor(
         _uiState.update { it.copy(isLoading = true) }
 
         viewModelScope.launch {
-            defaultRepository.observeAllWords().collect { words ->
-                _uiState.update { it.copy(words = words, isLoading = false) }
-            }
+            defaultRepository.observeLastEditFive()
+                .catch { _uiState.update { it.copy(isLoading = false, isWordsLoadingFailed = true) }  }
+                .collect { words ->
+                    _uiState.update { it.copy(words = words, isLoading = false) }
+                }
         }
     }
 

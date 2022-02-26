@@ -17,4 +17,9 @@
     <string name="close_all">Close All</string>
     <string name="delete_all">全て削除</string>
     <string name="add">追加</string>
+    <string name="bad_request">400 Bad Request</string>
+    <string name="sorry_something_wrong_cant_translate">sorry something wrong, can\'t translate</string>
+    <string name="sorry_something_wrong">sorry something wrong</string>
+    <string name="empty_string" />
+    <string name="error_cant_load_words">Error, can\'t load words</string>
 </resources>

@@ -18,13 +18,15 @@ sealed interface HomeUiState {
 
     data class HasWords(
         override val isLoading: Boolean,
-        val words: List<Word>
+        val words: List<Word>,
+        val isWordsLoadingFailed: Boolean
     ) : HomeUiState
 }
 
 private data class HomeViewModelState(
     val isLoading: Boolean = false,
-    val words: List<Word> = emptyList()
+    val words: List<Word> = emptyList(),
+    val isWordsLoadingFailed: Boolean = false
 ) {
     fun toUiState(): HomeUiState =
         if (words.isEmpty()) {
@@ -34,7 +36,8 @@ private data class HomeViewModelState(
         } else {
             HomeUiState.HasWords(
                 isLoading = isLoading,
-                words = words
+                words = words,
+                isWordsLoadingFailed = isWordsLoadingFailed
             )
         }
 }
@@ -58,9 +61,11 @@ class HomeViewModel @Inject constructor(
         viewModelState.update { it.copy(isLoading = true) }
 
         viewModelScope.launch {
-            defaultRepository.observeLastEditFive().collect { words ->
-                viewModelState.update { it.copy(words = words, isLoading = false) }
-            }
+            defaultRepository.observeLastEditFive()
+                .catch { viewModelState.update { it.copy(isLoading = false, isWordsLoadingFailed = true) }  }
+                .collect { words ->
+                    viewModelState.update { it.copy(words = words, isLoading = false) }
+                }
         }
     }
 

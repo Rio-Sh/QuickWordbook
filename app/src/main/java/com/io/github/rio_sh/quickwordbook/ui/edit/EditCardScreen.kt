@@ -48,6 +48,10 @@ fun EditCardBody(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+            Text(
+                text = stringResource(id = uiState.currentMessage.stringId),
+                color = MaterialTheme.colorScheme.error
+            )
             TranslateCard(
                 sourceText = uiState.sourceText,
                 targetText = uiState.targetText,

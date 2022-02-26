@@ -2,15 +2,16 @@ package com.io.github.rio_sh.quickwordbook.ui.edit
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.io.github.rio_sh.quickwordbook.R
 import com.io.github.rio_sh.quickwordbook.data.DefaultRepository
 import com.io.github.rio_sh.quickwordbook.data.Word
 import com.io.github.rio_sh.quickwordbook.network.Languages
+import com.io.github.rio_sh.quickwordbook.ui.common.ErrorMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 /**
@@ -29,7 +30,9 @@ data class EditCardUiState(
     val isTargetTextLoading: Boolean = false,
     val sourceLanguages: Languages = Languages.ENGLISH,
     val targetLanguage: Languages = Languages.JAPANESE,
-    val isSwitchChecked: Boolean = false
+    val isSwitchChecked: Boolean = false,
+    val errorMessages: List<ErrorMessage> = emptyList(),
+    val currentMessage: ErrorMessage = ErrorMessage(-1, R.string.empty_string)
 )
 
 @HiltViewModel
@@ -38,6 +41,20 @@ class EditCardViewModel @Inject constructor(
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(EditCardUiState())
     val uiState: StateFlow<EditCardUiState> = _uiState.asStateFlow()
+
+    init {
+        // collect error message and display on the screen
+        viewModelScope.launch {
+            _uiState.collect {
+                if(it.errorMessages.isNotEmpty()){
+                    val message = _uiState.value.errorMessages[0]
+                    setErrorMessage(message)
+                    delay(2000)
+                    errorMessageShown(message.id)
+                }
+            }
+        }
+    }
 
     fun upDateWord() {
         viewModelScope.launch {
@@ -93,28 +110,56 @@ class EditCardViewModel @Inject constructor(
         }
     }
 
+    private fun setErrorMessage(message: ErrorMessage) {
+        _uiState.update { it.copy(currentMessage = message) }
+    }
+
     /**
-     * Call GasApi using current source text state
+     * Remove message from ui state.
+     */
+    private fun errorMessageShown(id: Long) {
+        _uiState.update { currentState ->
+            val errorMessages = currentState.errorMessages.filterNot { it.id == id }
+            currentState.copy(
+                errorMessages = errorMessages,
+                currentMessage = ErrorMessage(-1, R.string.empty_string)
+            )
+        }
+    }
+
+    // TODO add no internet connection exception handling
+    /**
+     * Call GasApi using current source text state.
+     * If failed, add message to ui state.
      */
     fun translateText() {
         viewModelScope.launch {
-            try {
+            runCatching {
                 _uiState.update { it.copy(isTargetTextLoading = true) }
-                val response = defaultRepository.translateText(
+                defaultRepository.translateText(
                     sourceText = _uiState.value.sourceText,
                     sourceLanguage = _uiState.value.sourceLanguages,
                     targetLanguages = _uiState.value.targetLanguage
                 )
-                val targetText = response.body()?.text ?: ""
-                _uiState.update {
-                    it.copy(
-                        targetText = targetText,
-                        isTargetTextLoading = false
+            }.onSuccess { response ->
+                if(response.body()!!.code == 400){
+                    val errorMessages = _uiState.value.errorMessages + ErrorMessage(
+                        id = UUID.randomUUID().mostSignificantBits,
+                        stringId = R.string.bad_request
                     )
+                    _uiState.update { it.copy(errorMessages = errorMessages) }
+                } else {
+                    val targetText = response.body()?.text ?: ""
+                    _uiState.update { it.copy( targetText = targetText) }
                 }
-            } catch (e: Exception) {
-                // TODO Error handling
-                println(e)
+            }.onFailure {
+                val errorMessages = _uiState.value.errorMessages + ErrorMessage(
+                    id = UUID.randomUUID().mostSignificantBits,
+                    stringId = R.string.sorry_something_wrong_cant_translate
+                )
+                _uiState.update { it.copy(errorMessages = errorMessages) }
+            }.also {
+                _uiState.update { it.copy(isTargetTextLoading = false) }
             }
         }
     }

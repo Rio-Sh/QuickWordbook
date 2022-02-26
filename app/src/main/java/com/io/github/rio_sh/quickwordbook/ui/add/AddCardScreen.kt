@@ -5,13 +5,12 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.insets.statusBarsPadding
 import com.io.github.rio_sh.quickwordbook.R
 import com.io.github.rio_sh.quickwordbook.ui.common.TranslateCard
 import com.io.github.rio_sh.quickwordbook.ui.theme.QuickWordbookTheme
@@ -48,6 +47,10 @@ fun AddCardBody(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
+            Text(
+                text = stringResource(id = uiState.currentMessage.stringId),
+                color = MaterialTheme.colorScheme.error
+            )
             TranslateCard(
                 sourceText = uiState.sourceText,
                 targetText = uiState.targetText,
@@ -66,6 +69,7 @@ fun AddCardBody(
             Spacer(modifier = Modifier.padding(32.dp))
         }
     }
+    
 }
 
 
@@ -82,7 +86,7 @@ fun AddCardScreenPreview() {
             onAddButtonClicked = {},
             onBackClicked = {},
             onTargetLanguageChanged = {},
-            onToggleSwitch = {}
+            onToggleSwitch = {},
         )
     }
 }
