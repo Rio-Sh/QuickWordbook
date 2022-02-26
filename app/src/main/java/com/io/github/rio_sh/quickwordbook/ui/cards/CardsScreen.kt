@@ -19,10 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.*
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.accompanist.insets.navigationBarsPadding
-import com.google.accompanist.insets.statusBarsPadding
 import com.io.github.rio_sh.quickwordbook.R
 import com.io.github.rio_sh.quickwordbook.data.Word
 import com.io.github.rio_sh.quickwordbook.ui.common.WordCard
@@ -67,13 +67,21 @@ fun CardsBody(
         Column(
             modifier = Modifier.padding(innerPadding)
         ) {
-            Spacer(modifier = Modifier.padding(48.dp))
+            Spacer(modifier = Modifier.padding(36.dp))
             Text(
                 modifier = Modifier.padding(16.dp),
                 text = stringResource(R.string.your_wordbook),
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold
             )
+            if(uiState.isWordsLoadingFailed){
+                Text(
+                    text = stringResource(R.string.error_cant_load_words),
+                    modifier = Modifier.fillMaxWidth(1f),
+                    color = MaterialTheme.colorScheme.error,
+                    textAlign = TextAlign.Center
+                )
+            }
             StaggerLayout(
                 modifier = Modifier
                     .horizontalScroll(rememberScrollState())
@@ -271,7 +279,13 @@ fun CardsScreenPreview() {
     val wordsList: List<Word> = List(20) {
         Word(it, "Text $it".repeat((1..5).random()), "テキスト $it", 0)
     }
-    val uiState = CardsUiState(isLoading = false, isCardsOpen = true, words = wordsList)
+    // val wordsList = emptyList<Word>()
+    val uiState = CardsUiState(
+        isLoading = false,
+        isCardsOpen = true,
+        words = wordsList,
+        // isWordsLoadingFailed = true
+    )
     QuickWordbookTheme {
         CardsBody(
             uiState = uiState,

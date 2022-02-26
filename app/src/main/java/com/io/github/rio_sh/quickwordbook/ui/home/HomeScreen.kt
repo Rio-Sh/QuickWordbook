@@ -80,6 +80,9 @@ fun HomeBody(
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Spacer(modifier = Modifier.padding(24.dp))
+            if(uiState is HomeUiState.HasWords && uiState.isWordsLoadingFailed){
+                Text(stringResource(R.string.error_cant_load_words), color = MaterialTheme.colorScheme.error)
+            }
             if (uiState is HomeUiState.HasWords) {
                 Column(
                     modifier = Modifier.fillMaxWidth(1f),
@@ -129,19 +132,21 @@ fun HomeWordCard(
 @Preview(uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun HomePreview() {
-    val wordsList: List<Word> = List(5) {
-        Word(
-            wordId = it,
-            textSource = "Text $it",
-            textTarget = "テキスト　$it",
-            lastEdit = 0L
-        )
-    }
+     val wordsList: List<Word> = List(5) {
+         Word(
+             wordId = it,
+             textSource = "Text $it",
+             textTarget = "テキスト　$it",
+             lastEdit = 0L
+         )
+     }
+    //val wordsList = emptyList<Word>()
     QuickWordbookTheme {
         HomeBody(
             uiState = HomeUiState.HasWords(
                 isLoading = false,
-                words = wordsList
+                words = wordsList,
+                isWordsLoadingFailed = false,
             ),
             onAddFabClicked = {},
             onCardsFabClicked = {},
