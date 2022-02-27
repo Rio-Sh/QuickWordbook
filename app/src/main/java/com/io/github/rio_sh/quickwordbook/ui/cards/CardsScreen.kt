@@ -70,7 +70,6 @@ fun CardsBody(
                 .padding(innerPadding)
                 .verticalScroll(rememberScrollState())
         ) {
-            Spacer(modifier = Modifier.padding(36.dp))
             Text(
                 modifier = Modifier.padding(16.dp),
                 text = stringResource(R.string.your_wordbook),
