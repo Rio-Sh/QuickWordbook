@@ -112,8 +112,8 @@ fun TranslateTextField(
         TextField(
             value = sourceText,
             onValueChange = {
-                onTranslateText()
                 onSourceTextChanged(it)
+                onTranslateText()
             },
             textStyle = MaterialTheme.typography.bodyMedium,
             placeholder = {
