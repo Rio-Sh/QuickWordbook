@@ -82,7 +82,6 @@ fun HomeBody(
                 .padding(innerPadding),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Spacer(modifier = Modifier.padding(24.dp))
             if(uiState is HomeUiState.HasWords && uiState.isWordsLoadingFailed){
                 Text(stringResource(R.string.error_cant_load_words), color = MaterialTheme.colorScheme.error)
             }

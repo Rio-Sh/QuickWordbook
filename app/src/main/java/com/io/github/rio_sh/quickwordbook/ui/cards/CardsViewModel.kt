@@ -27,7 +27,7 @@ class CardsViewModel @Inject constructor(
         _uiState.update { it.copy(isLoading = true) }
 
         viewModelScope.launch {
-            defaultRepository.observeLastEditFive()
+            defaultRepository.observeAllWords()
                 .catch { _uiState.update { it.copy(isLoading = false, isWordsLoadingFailed = true) }  }
                 .collect { words ->
                     _uiState.update { it.copy(words = words, isLoading = false) }
