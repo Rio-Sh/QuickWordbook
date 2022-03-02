@@ -94,13 +94,19 @@ fun WordCard(
                             expanded = isOpenDropdown,
                             onDismissRequest = { isOpenDropdown = false }
                         ) {
-                            DropdownMenuItem(onClick = { navigationToDetail(word.wordId) }) {
+                            DropdownMenuItem(onClick = {
+                                isOpenDropdown = false
+                                navigationToDetail(word.wordId)
+                            }) {
                                 Text(
                                     text = stringResource(R.string.edit),
                                     color = MaterialTheme.colorScheme.onSurface
                                 )
                             }
-                            DropdownMenuItem(onClick = { isOpenDialog = true }) {
+                            DropdownMenuItem(onClick = {
+                                isOpenDropdown = false
+                                isOpenDialog = true
+                            }) {
                                 Text(
                                     text = stringResource(R.string.delete),
                                     color = MaterialTheme.colorScheme.onSurface
@@ -142,7 +148,7 @@ fun WordCard(
         if (isOpenDialog) {
             AlertDialog(
                 onDeleteWord = { onDeleteWord(word.wordId) },
-                openDialog = { isOpenDialog = it }
+                openDialog = { isOpenDialog = it },
             )
         }
     }
