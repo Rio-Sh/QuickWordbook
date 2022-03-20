@@ -1,6 +1,6 @@
 # QuickWordbook
 
-"QuickWordbook" is a English vocaburaly wordbook app for Android.  
+"QuickWordbook" is a English vocabulary wordbook app for Android.  
 
 You can see the feature and demo movie at https://rio-sh.github.io/riosh_works/posts/quick_wordbook/.
 
