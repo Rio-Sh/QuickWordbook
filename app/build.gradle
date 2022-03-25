@@ -92,8 +92,6 @@ dependencies {
     implementation Libs.Accompanist.insets
     implementation Libs.Accompanist.uiController
 
-    implementation Libs.Coil.coilCompose
-
     implementation Libs.Retrofit.retrofit
     implementation Libs.Retrofit.gson
 

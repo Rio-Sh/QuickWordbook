@@ -90,10 +90,6 @@ object Libs {
         const val material = "com.google.android.material:material:1.5.0"
     }
 
-    object Coil {
-        const val coilCompose = "io.coil-kt:coil-compose:1.4.0"
-    }
-
     object Retrofit {
         const val version = "2.9.0"
         const val retrofit = "com.squareup.retrofit2:retrofit:$version"
