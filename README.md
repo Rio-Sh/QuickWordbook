@@ -28,3 +28,11 @@ This app has a repository and retrive data from a local database (Room) and a ht
 <img src="https://developer.android.com/topic/libraries/architecture/images/mad-arch-data-overview.png" width=50%>  
 
 This http client is used for the auto translation feature in the app. It accesses to [Google Apps Script](https://www.google.com/script/start/)
+
+# Dev environment
+IDE : Android Studio Bumblebee | 2021.1.1 Patch 2  
+Kotlin : 1.6.10  
+Gradle : 7.0.2  
+Java : 11  
+minSdk : 21  
+targetSdk : 31  
