@@ -10,7 +10,7 @@ Architecture of QuickWordbook refer to [Guide to app architecture](https://devel
 
 In the above document, it's recomended that a app be divided into the following layers.  
 
-<img src="https://developer.android.com/topic/libraries/architecture/images/mad-arch-overview.png" width=50%>  
+<img src="https://developer.android.com/topic/libraries/architecture/images/mad-arch-overview.png" width=60%>  
   
 
 QuickWordbook has two layers, UI layer and Data layer.
@@ -20,11 +20,19 @@ In the UI layer, it follows Unidirectional Data Flow (UDF),an architecture achie
 
 Each screen has a ViewModel that manages UI state and updates state by events from a Screen Composable.  
 
-<img src="https://developer.android.com/topic/libraries/architecture/images/mad-arch-ui-udf.png" width=50%>  
+<img src="https://developer.android.com/topic/libraries/architecture/images/mad-arch-ui-udf.png" width=60%>  
 
 In the Data layer, it follows repository pattern.  
 This app has a repository and retrive data from a local database (Room) and a http client (Retrofit).  
 
-<img src="https://developer.android.com/topic/libraries/architecture/images/mad-arch-data-overview.png" width=50%>  
+<img src="https://developer.android.com/topic/libraries/architecture/images/mad-arch-data-overview.png" width=60%>  
 
 This http client is used for the auto translation feature in the app. It accesses to [Google Apps Script](https://www.google.com/script/start/)
+
+# Dev environment
+IDE : Android Studio Bumblebee | 2021.1.1 Patch 2  
+Kotlin : 1.6.10  
+Gradle : 7.0.2  
+Java : 11  
+minSdk : 21  
+targetSdk : 31  
