@@ -11,7 +11,7 @@ android {
     compileSdkVersion 31
     defaultConfig {
         applicationId 'com.io.github.rio_sh.quickwordbook'
-        minSdkVersion 21
+        minSdkVersion 23
         targetSdkVersion 31
         versionCode 1
         versionName '1.0'
@@ -20,7 +20,16 @@ android {
         buildConfigField 'String', 'API_URL', '"https://script.google.com/macros/s/AKfycbysAZbFYMW-fF4KWVMOcSLIjSKJTOvg_hHVKhVjie711rwpA8tr92cjSMASqw4N2cuVQw/"'
     }
 
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file("local.properties").newDataInputStream())
+
     signingConfigs {
+        release {
+            storeFile file('/Users/ryo/AndroidStudioProjects/androidApkKey')
+            storePassword  properties.getProperty("RELEASE_STORE_PASSWORD")
+            keyAlias properties.getProperty("RELEASE_KEY_ALIAS")
+            keyPassword properties.getProperty("RELEASE_KEY_PASSWORD")
+        }
     }
 
     buildTypes {
@@ -32,6 +41,8 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            buildConfigField 'String', 'API_URL', '"https://script.google.com/macros/s/AKfycbysAZbFYMW-fF4KWVMOcSLIjSKJTOvg_hHVKhVjie711rwpA8tr92cjSMASqw4N2cuVQw/"'
         }
     }
 
