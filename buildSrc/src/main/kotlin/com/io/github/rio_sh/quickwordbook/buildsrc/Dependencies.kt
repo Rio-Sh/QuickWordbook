@@ -8,7 +8,7 @@ object Libs {
     const val androidGradlePlugin = "com.android.tools.build:gradle:7.0.3"
 
     object Accompanist {
-        const val version = "0.22.0-rc"
+        const val version = "0.24.5-alpha"
         const val insets = "com.google.accompanist:accompanist-insets:$version"
         const val uiController = "com.google.accompanist:accompanist-systemuicontroller:$version"
     }
@@ -33,7 +33,7 @@ object Libs {
     }
 
     object AndroidX {
-        const val coreKtx = "androidx.core:core-ktx:1.7.0"
+        const val coreKtx = "androidx.core:core-ktx:1.8.0-alpha05"
         const val navigation = "androidx.navigation:navigation-compose:2.4.0-rc01"
 
         object Activity {
@@ -42,7 +42,7 @@ object Libs {
 
         object Compose {
             const val snapshot = ""
-            const val version = "1.1.0-rc01"
+            const val version = "1.2.0-alpha06"
 
             const val animation = "androidx.compose.animation:animation:$version"
             const val foundation = "androidx.compose.foundation:foundation:$version"
