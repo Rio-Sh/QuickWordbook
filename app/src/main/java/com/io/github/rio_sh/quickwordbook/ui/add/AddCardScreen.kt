@@ -28,6 +28,7 @@ fun AddCardBody(
     onToggleSwitch: (Boolean) -> Unit,
 ) {
     Scaffold(
+        modifier = Modifier.systemBarsPadding(),
         topBar = {
             Row(horizontalArrangement = Arrangement.Start) {
                 IconButton(onClick = { onBackClicked() }) {

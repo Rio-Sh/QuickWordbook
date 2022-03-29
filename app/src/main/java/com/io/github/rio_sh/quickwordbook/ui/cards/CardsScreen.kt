@@ -23,7 +23,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.insets.navigationBarsPadding
 import com.io.github.rio_sh.quickwordbook.R
 import com.io.github.rio_sh.quickwordbook.data.Word
 import com.io.github.rio_sh.quickwordbook.ui.common.WordCard
@@ -44,6 +43,7 @@ fun CardsBody(
 ) {
     var isOpenDialog by remember { mutableStateOf(false) }
     Scaffold(
+        modifier = Modifier.systemBarsPadding(),
         topBar = {
             AppBar(
                 onBackClicked = onBackClicked,

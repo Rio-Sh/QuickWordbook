@@ -11,7 +11,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.google.accompanist.insets.statusBarsPadding
 import com.io.github.rio_sh.quickwordbook.R
 import com.io.github.rio_sh.quickwordbook.ui.common.TranslateCard
 import com.io.github.rio_sh.quickwordbook.ui.theme.QuickWordbookTheme
@@ -29,6 +28,7 @@ fun EditCardBody(
     onBackClicked: () -> Unit,
 ) {
     Scaffold(
+        modifier = Modifier.systemBarsPadding(),
         topBar = {
             Row(horizontalArrangement = Arrangement.Start) {
                 IconButton(onClick = { onBackClicked() }) {
