@@ -4,6 +4,14 @@
 
 You can see the feature and demo movie at https://rio-sh.github.io/riosh_works/posts/quick_wordbook/.
 
+# Package structure
+|Package: com.io.github.rio_sh.quickwordbook||
+| ------------------ | :---------------------------- |
+|.data| The data layer for the app |
+|.di| Code for dipendency injection (Hilt)  |
+|.network| Code for http client (Retrofit) |
+|.ui| The UI layer for the app. Each screens has a viewModel|
+
 # Architecture
 
 Architecture of QuickWordbook refer to [Guide to app architecture](https://developer.android.com/jetpack/guide) by Google.  
