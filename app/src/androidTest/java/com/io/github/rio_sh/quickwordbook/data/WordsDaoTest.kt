@@ -7,7 +7,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.io.github.rio_sh.quickwordbook.MainCoroutineRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.runTest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.After
 import org.junit.Before
@@ -17,7 +17,7 @@ import org.junit.runner.RunWith
 
 @ExperimentalCoroutinesApi
 @RunWith(AndroidJUnit4::class)
-class QuickWordbookDatabaseTest {
+class WordsDaoTest {
     private lateinit var database: QuickWordbookDatabase
     private lateinit var dao: WordsDao
 
@@ -46,7 +46,7 @@ class QuickWordbookDatabaseTest {
     }
 
     @Test
-    fun insertThenGetWord() = mainCoroutineRule.runBlockingTest {
+    fun insertThenGetWord() = runTest {
         dao.insertWord(wordItem1)
         val result = dao.getWordById(1)
 
@@ -55,7 +55,7 @@ class QuickWordbookDatabaseTest {
     }
 
     @Test
-    fun updateWord() = mainCoroutineRule.runBlockingTest {
+    fun updateWordAndGetById() = runTest {
         dao.insertWord(wordItem1)
         dao.updateWord(Word(wordId = 1, textSource = "New text", textTarget = "新しいテキスト", lastEdit = 1L))
         val result = dao.getWordById(1)
@@ -65,7 +65,7 @@ class QuickWordbookDatabaseTest {
     }
 
     @Test
-    fun observeWords() = mainCoroutineRule.runBlockingTest {
+    fun observeWords() = runTest {
         dao.insertWord(wordItem1)
         dao.insertWord(wordItem2)
 
@@ -79,7 +79,7 @@ class QuickWordbookDatabaseTest {
     }
 
     @Test
-    fun observeLastFive() = mainCoroutineRule.runBlockingTest {
+    fun observeLastFive() = runTest {
         for (i in 1..6) {
             dao.insertWord(Word(textSource = "Text$i", textTarget = "テキスト$i", lastEdit = i.toLong()))
         }
@@ -93,7 +93,7 @@ class QuickWordbookDatabaseTest {
     }
 
     @Test
-    fun deleteWord() = mainCoroutineRule.runBlockingTest {
+    fun deleteWordAndObserveAll() = runTest {
         dao.insertWord(wordItem1)
         dao.insertWord(wordItem2)
 
@@ -106,5 +106,18 @@ class QuickWordbookDatabaseTest {
 
         assertThat(result).contains(expect2)
         assertThat(result).doesNotContain(expect1)
+    }
+
+    @Test
+    fun deleteAllWordsAndObserveAll() = runTest {
+        for (i in 1..6) {
+            dao.insertWord(Word(textSource = "Text$i", textTarget = "テキスト$i", lastEdit = i.toLong()))
+        }
+
+        dao.deleteAllWords()
+
+        val result = dao.observeAllWords().first()
+
+        assertThat(result).isEmpty()
     }
 }
