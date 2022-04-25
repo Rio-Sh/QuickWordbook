@@ -34,23 +34,6 @@ fun HomeBody(
 ) {
     Scaffold(
         modifier = Modifier.systemBarsPadding(),
-        topBar = {
-            Row {
-                if (!isSystemInDarkTheme()) {
-                    Image(
-                        modifier = Modifier.padding(8.dp),
-                        painter = painterResource(id = R.drawable.ic_title),
-                        contentDescription = null,
-                    )
-                } else {
-                    Image(
-                        modifier = Modifier.padding(8.dp),
-                        painter = painterResource(id = R.drawable.ic_title_dark),
-                        contentDescription = null,
-                    )
-                }
-            }
-        },
         floatingActionButton = {
             Column(
                 modifier = Modifier.navigationBarsPadding(),
@@ -82,6 +65,21 @@ fun HomeBody(
                 .fillMaxSize(1f),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+            Row {
+                if (!isSystemInDarkTheme()) {
+                    Image(
+                        modifier = Modifier.padding(8.dp),
+                        painter = painterResource(id = R.drawable.ic_title),
+                        contentDescription = null,
+                    )
+                } else {
+                    Image(
+                        modifier = Modifier.padding(8.dp),
+                        painter = painterResource(id = R.drawable.ic_title_dark),
+                        contentDescription = null,
+                    )
+                }
+            }
             if(uiState is HomeUiState.HasWords && uiState.isWordsLoadingFailed){
                 Text(stringResource(R.string.error_cant_load_words), color = MaterialTheme.colorScheme.error)
             }
