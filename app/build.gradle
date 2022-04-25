@@ -13,8 +13,8 @@ android {
         applicationId 'com.io.github.rio_sh.quickwordbook'
         minSdkVersion 23
         targetSdkVersion 31
-        versionCode 1
-        versionName '1.0'
+        versionCode 2
+        versionName '1.1'
         vectorDrawables.useSupportLibrary true
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         buildConfigField 'String', 'API_URL', '"https://script.google.com/macros/s/AKfycbysAZbFYMW-fF4KWVMOcSLIjSKJTOvg_hHVKhVjie711rwpA8tr92cjSMASqw4N2cuVQw/"'
