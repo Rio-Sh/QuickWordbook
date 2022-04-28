@@ -1,6 +1,6 @@
+/* (C)2022 Rio-Sh */
 package com.io.github.rio_sh.quickwordbook.ui.theme
 import androidx.compose.ui.graphics.Color
-
 
 val md_theme_light_primary = Color(0xFF86468c)
 val md_theme_light_onPrimary = Color(0xFFffffff)

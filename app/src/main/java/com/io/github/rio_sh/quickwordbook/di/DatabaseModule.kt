@@ -1,3 +1,4 @@
+/* (C)2022 Rio-Sh */
 package com.io.github.rio_sh.quickwordbook.di
 
 import android.content.Context
@@ -9,10 +10,10 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import javax.inject.Qualifier
 import javax.inject.Singleton
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 
 @InstallIn(SingletonComponent::class)
 @Module
@@ -24,7 +25,9 @@ class DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideQuickWordBookDatabase(@ApplicationContext appContext: Context): QuickWordbookDatabase {
+    fun provideQuickWordBookDatabase(
+        @ApplicationContext appContext: Context
+    ): QuickWordbookDatabase {
         return Room.databaseBuilder(
             appContext,
             QuickWordbookDatabase::class.java,

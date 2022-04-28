@@ -1,3 +1,4 @@
+/* (C)2022 Rio-Sh */
 package com.io.github.rio_sh.quickwordbook.ui
 
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -65,9 +66,11 @@ fun NavHost(
 
         composable(
             route = "${QuickWordbookScreen.EditCard.name}/{wordId}",
-            arguments = listOf(navArgument("wordId") {
-                type = NavType.IntType
-            })
+            arguments = listOf(
+                navArgument("wordId") {
+                    type = NavType.IntType
+                }
+            )
         ) { backStackEntry ->
             val editCardViewModel = hiltViewModel<EditCardViewModel>()
             EditCardRoute(
@@ -84,5 +87,5 @@ private fun navigateToEdit(
     wordId: Int,
     navController: NavHostController
 ) {
-    navController.navigate("${QuickWordbookScreen.EditCard.name}/${wordId}")
+    navController.navigate("${QuickWordbookScreen.EditCard.name}/$wordId")
 }

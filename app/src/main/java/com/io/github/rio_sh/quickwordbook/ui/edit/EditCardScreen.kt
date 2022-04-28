@@ -1,3 +1,4 @@
+/* (C)2022 Rio-Sh */
 package com.io.github.rio_sh.quickwordbook.ui.edit
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES

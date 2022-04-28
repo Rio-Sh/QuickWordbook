@@ -37,8 +37,11 @@ subprojects {
             target '**/*.kt'
             targetExclude("$buildDir/**/*.kt")
             targetExclude('bin/**/*.kt')
-            ktlint(Versions.ktlint).userData([android: "true"])
-            licenseHeaderFile rootProject.file('spotless/copyright.kt')
+            ktlint(Versions.ktlint).userData([
+                    android: "true",
+                    disabled_rules: "no-wildcard-imports"
+            ])
+            licenseHeader ('/* (C)$YEAR Rio-Sh */')
         }
     }
 }

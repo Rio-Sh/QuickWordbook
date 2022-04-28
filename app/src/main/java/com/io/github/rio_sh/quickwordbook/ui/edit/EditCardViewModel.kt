@@ -1,3 +1,4 @@
+/* (C)2022 Rio-Sh */
 package com.io.github.rio_sh.quickwordbook.ui.edit
 
 import androidx.lifecycle.ViewModel
@@ -8,11 +9,11 @@ import com.io.github.rio_sh.quickwordbook.data.Word
 import com.io.github.rio_sh.quickwordbook.network.Languages
 import com.io.github.rio_sh.quickwordbook.ui.common.ErrorMessage
 import dagger.hilt.android.lifecycle.HiltViewModel
+import java.util.*
+import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import java.util.*
-import javax.inject.Inject
 
 /**
  * @param word
@@ -46,7 +47,7 @@ class EditCardViewModel @Inject constructor(
         // collect error message and display on the screen
         viewModelScope.launch {
             _uiState.collect {
-                if(it.errorMessages.isNotEmpty()){
+                if (it.errorMessages.isNotEmpty()) {
                     val message = _uiState.value.errorMessages[0]
                     setErrorMessage(message)
                     delay(2000)
@@ -142,7 +143,7 @@ class EditCardViewModel @Inject constructor(
                     targetLanguages = _uiState.value.targetLanguage
                 )
             }.onSuccess { response ->
-                if(response.body()!!.code == 400){
+                if (response.body()!!.code == 400) {
                     val errorMessages = _uiState.value.errorMessages + ErrorMessage(
                         id = UUID.randomUUID().mostSignificantBits,
                         stringId = R.string.bad_request
@@ -150,7 +151,7 @@ class EditCardViewModel @Inject constructor(
                     _uiState.update { it.copy(errorMessages = errorMessages) }
                 } else {
                     val targetText = response.body()?.text ?: ""
-                    _uiState.update { it.copy( targetText = targetText) }
+                    _uiState.update { it.copy(targetText = targetText) }
                 }
             }.onFailure {
                 val errorMessages = _uiState.value.errorMessages + ErrorMessage(
