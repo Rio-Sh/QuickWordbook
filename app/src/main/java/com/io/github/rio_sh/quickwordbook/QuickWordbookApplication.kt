@@ -1,8 +1,8 @@
+/* (C)2022 Rio-Sh */
 package com.io.github.rio_sh.quickwordbook
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
-class QuickWordbookApplication : Application() {
-}
+class QuickWordbookApplication : Application()

@@ -1,9 +1,10 @@
+/* (C)2022 Rio-Sh */
 package com.io.github.rio_sh.quickwordbook.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
 private val LightThemeColors = lightColorScheme(

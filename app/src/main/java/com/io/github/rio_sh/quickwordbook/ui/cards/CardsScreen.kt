@@ -1,3 +1,4 @@
+/* (C)2022 Rio-Sh */
 package com.io.github.rio_sh.quickwordbook.ui.cards
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
@@ -76,7 +77,7 @@ fun CardsBody(
                 style = MaterialTheme.typography.headlineMedium,
                 fontWeight = FontWeight.Bold
             )
-            if(uiState.isWordsLoadingFailed){
+            if (uiState.isWordsLoadingFailed) {
                 Text(
                     text = stringResource(R.string.error_cant_load_words),
                     modifier = Modifier.fillMaxWidth(1f),
@@ -161,7 +162,8 @@ private fun AlertDialog(
         dismissButton = {
             TextButton(
                 onClick = { openDialog(false) },
-                colors = ButtonDefaults.textButtonColors(contentColor = MaterialTheme.colorScheme.onSurface)
+                colors = ButtonDefaults
+                    .textButtonColors(contentColor = MaterialTheme.colorScheme.onSurface)
             ) {
                 Text(text = stringResource(R.string.cancel))
             }

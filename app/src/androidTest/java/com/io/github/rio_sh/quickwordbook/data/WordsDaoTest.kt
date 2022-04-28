@@ -1,3 +1,4 @@
+/* (C)2022 Rio-Sh */
 package com.io.github.rio_sh.quickwordbook.data
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
@@ -57,10 +58,22 @@ class WordsDaoTest {
     @Test
     fun updateWordAndGetById() = runTest {
         dao.insertWord(wordItem1)
-        dao.updateWord(Word(wordId = 1, textSource = "New text", textTarget = "新しいテキスト", lastEdit = 1L))
+        dao.updateWord(
+            Word(
+                wordId = 1,
+                textSource = "New text",
+                textTarget = "新しいテキスト",
+                lastEdit = 1L
+            )
+        )
         val result = dao.getWordById(1)
 
-        val expect = Word(wordId = 1, textSource = "New text", textTarget = "新しいテキスト", lastEdit = 1L)
+        val expect = Word(
+            wordId = 1,
+            textSource = "New text",
+            textTarget = "新しいテキスト",
+            lastEdit = 1L
+        )
         assertThat(result).isEqualTo(expect)
     }
 
@@ -69,11 +82,11 @@ class WordsDaoTest {
         dao.insertWord(wordItem1)
         dao.insertWord(wordItem2)
 
-        //val result = dao.observeAllWords().getOrAwaitValue()
+        // val result = dao.observeAllWords().getOrAwaitValue()
         val result = dao.observeAllWords().first()
 
-       val expect1 = Word(wordId = 1, textSource = "Text1", textTarget = "テキスト1", lastEdit = 0L)
-       val expect2 = Word(wordId = 2, textSource = "Text2", textTarget = "テキスト2", lastEdit = 0L)
+        val expect1 = Word(wordId = 1, textSource = "Text1", textTarget = "テキスト1", lastEdit = 0L)
+        val expect2 = Word(wordId = 2, textSource = "Text2", textTarget = "テキスト2", lastEdit = 0L)
 
         assertThat(result).contains(expect1, expect2)
     }
@@ -81,15 +94,35 @@ class WordsDaoTest {
     @Test
     fun observeLastFive() = runTest {
         for (i in 1..6) {
-            dao.insertWord(Word(textSource = "Text$i", textTarget = "テキスト$i", lastEdit = i.toLong()))
+            dao.insertWord(
+                Word(
+                    textSource = "Text$i",
+                    textTarget = "テキスト$i",
+                    lastEdit = i.toLong()
+                )
+            )
         }
 
         val result = dao.observeLastEditFive().first()
 
         for (i in 2..6) {
-            assertThat(result).contains(Word(wordId = i, textSource = "Text$i", textTarget = "テキスト$i", lastEdit = i.toLong()))
+            assertThat(result).contains(
+                Word(
+                    wordId = i,
+                    textSource = "Text$i",
+                    textTarget = "テキスト$i",
+                    lastEdit = i.toLong()
+                )
+            )
         }
-        assertThat(result).doesNotContain(Word(wordId = 1, textSource = "Text1", textTarget = "テキスト1", lastEdit = 1L ))
+        assertThat(result).doesNotContain(
+            Word(
+                wordId = 1,
+                textSource = "Text1",
+                textTarget = "テキスト1",
+                lastEdit = 1L
+            )
+        )
     }
 
     @Test
@@ -111,7 +144,13 @@ class WordsDaoTest {
     @Test
     fun deleteAllWordsAndObserveAll() = runTest {
         for (i in 1..6) {
-            dao.insertWord(Word(textSource = "Text$i", textTarget = "テキスト$i", lastEdit = i.toLong()))
+            dao.insertWord(
+                Word(
+                    textSource = "Text$i",
+                    textTarget = "テキスト$i",
+                    lastEdit = i.toLong()
+                )
+            )
         }
 
         dao.deleteAllWords()

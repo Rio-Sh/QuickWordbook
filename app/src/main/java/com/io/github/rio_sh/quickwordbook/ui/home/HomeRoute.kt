@@ -1,3 +1,4 @@
+/* (C)2022 Rio-Sh */
 package com.io.github.rio_sh.quickwordbook.ui.home
 
 import androidx.compose.material3.ExperimentalMaterial3Api

@@ -1,13 +1,13 @@
+/* (C)2022 Rio-Sh */
 package com.io.github.rio_sh.quickwordbook
 
 import com.io.github.rio_sh.quickwordbook.network.GasService
 import com.io.github.rio_sh.quickwordbook.network.Languages
 import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Test
-import org.assertj.core.api.Assertions.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -28,7 +28,13 @@ class NetworkTest {
     @Test
     fun getResponseHello() {
         val response = runBlocking {
-            val job = async { service.getTranslateResponse("hello", Languages.ENGLISH.languageCode, Languages.JAPANESE.languageCode) }
+            val job = async {
+                service.getTranslateResponse(
+                    "hello",
+                    Languages.ENGLISH.languageCode,
+                    Languages.JAPANESE.languageCode
+                )
+            }
             job.await()
         }
 
@@ -39,7 +45,13 @@ class NetworkTest {
     @Test
     fun getResponseEmpty() {
         val response = runBlocking {
-            val job = async { service.getTranslateResponse("", Languages.ENGLISH.languageCode, Languages.JAPANESE.languageCode) }
+            val job = async {
+                service.getTranslateResponse(
+                    "",
+                    Languages.ENGLISH.languageCode,
+                    Languages.JAPANESE.languageCode
+                )
+            }
             job.await()
         }
 

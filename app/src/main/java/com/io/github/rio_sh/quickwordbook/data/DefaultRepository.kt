@@ -1,13 +1,14 @@
+/* (C)2022 Rio-Sh */
 package com.io.github.rio_sh.quickwordbook.data
 
 import com.io.github.rio_sh.quickwordbook.network.GasService
 import com.io.github.rio_sh.quickwordbook.network.Languages
 import com.io.github.rio_sh.quickwordbook.network.ResponseText
+import javax.inject.Inject
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import retrofit2.Response
-import javax.inject.Inject
 
 // LocalDatasource's methods is assigned IO dispatcher at definition.
 // Can refactor this as use another datasource. Add a datasource to constructor, and invoke methods in inside coroutineScope block.
@@ -28,7 +29,6 @@ class DefaultRepository @Inject constructor(
             launch { wordsLocalDataSource.updateWord(word) }
         }
     }
-
 
     suspend fun deleteWordById(wordId: Int) {
         coroutineScope {
