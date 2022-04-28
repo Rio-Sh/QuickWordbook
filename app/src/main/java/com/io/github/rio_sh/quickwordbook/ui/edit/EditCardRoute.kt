@@ -1,3 +1,4 @@
+/* (C)2022 Rio-Sh */
 package com.io.github.rio_sh.quickwordbook.ui.edit
 
 import androidx.compose.runtime.*
@@ -27,5 +28,4 @@ fun EditCardRoute(
         },
         onBackClicked = { onBackClicked() }
     )
-
 }

@@ -1,15 +1,30 @@
+/* (C)2022 Rio-Sh */
 package com.io.github.rio_sh.quickwordbook.ui.home
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.ModeEdit
 import androidx.compose.material.icons.rounded.ViewAgenda
-import androidx.compose.material3.*
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SmallFloatingActionButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -80,8 +95,11 @@ fun HomeBody(
                     )
                 }
             }
-            if(uiState is HomeUiState.HasWords && uiState.isWordsLoadingFailed){
-                Text(stringResource(R.string.error_cant_load_words), color = MaterialTheme.colorScheme.error)
+            if (uiState is HomeUiState.HasWords && uiState.isWordsLoadingFailed) {
+                Text(
+                    stringResource(R.string.error_cant_load_words),
+                    color = MaterialTheme.colorScheme.error
+                )
             }
             if (uiState is HomeUiState.HasWords) {
                 Column(
@@ -126,21 +144,20 @@ fun HomeWordCard(
     }
 }
 
-
 @ExperimentalMaterial3Api
 @Preview
 @Preview(uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun HomePreview() {
-     val wordsList: List<Word> = List(5) {
-         Word(
-             wordId = it,
-             textSource = "Text $it",
-             textTarget = "テキスト　$it",
-             lastEdit = 0L
-         )
-     }
-    //val wordsList = emptyList<Word>()
+    val wordsList: List<Word> = List(5) {
+        Word(
+            wordId = it,
+            textSource = "Text $it",
+            textTarget = "テキスト　$it",
+            lastEdit = 0L
+        )
+    }
+    // val wordsList = emptyList<Word>()
     QuickWordbookTheme {
         HomeBody(
             uiState = HomeUiState.HasWords(

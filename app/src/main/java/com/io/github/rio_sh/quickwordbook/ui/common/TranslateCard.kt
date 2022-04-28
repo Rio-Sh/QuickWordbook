@@ -1,3 +1,4 @@
+/* (C)2022 Rio-Sh */
 package com.io.github.rio_sh.quickwordbook.ui.common
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
@@ -126,7 +127,8 @@ fun TranslateTextField(
             singleLine = true,
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
             keyboardActions = KeyboardActions(onDone = { localFocusManager.clearFocus() }),
-            colors = TextFieldDefaults.textFieldColors(textColor = MaterialTheme.colorScheme.onSecondaryContainer)
+            colors = TextFieldDefaults
+                .textFieldColors(textColor = MaterialTheme.colorScheme.onSecondaryContainer)
         )
         Spacer(modifier = Modifier.padding(4.dp))
         TextField(
@@ -146,7 +148,8 @@ fun TranslateTextField(
             },
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
             keyboardActions = KeyboardActions(onDone = { localFocusManager.clearFocus() }),
-            colors = TextFieldDefaults.textFieldColors(textColor = MaterialTheme.colorScheme.onSecondaryContainer)
+            colors = TextFieldDefaults
+                .textFieldColors(textColor = MaterialTheme.colorScheme.onSecondaryContainer)
         )
     }
 }
@@ -155,16 +158,16 @@ fun TranslateTextField(
 @Preview(uiMode = UI_MODE_NIGHT_YES)
 @Composable
 fun TextFieldPrev() {
-     QuickWordbookTheme {
-         Surface {
-             TranslateTextField(
-                 sourceText = "text",
-                 targetText = "テキスト",
-                 isLoading = false,
-                 onSourceTextChanged = {},
-                 onTargetTextChanged = {},
-                 onTranslateText = {},
-             )
-         }
+    QuickWordbookTheme {
+        Surface {
+            TranslateTextField(
+                sourceText = "text",
+                targetText = "テキスト",
+                isLoading = false,
+                onSourceTextChanged = {},
+                onTargetTextChanged = {},
+                onTranslateText = {},
+            )
+        }
     }
 }

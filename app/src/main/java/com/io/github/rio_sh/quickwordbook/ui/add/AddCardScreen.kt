@@ -1,3 +1,4 @@
+/* (C)2022 Rio-Sh */
 package com.io.github.rio_sh.quickwordbook.ui.add
 
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
@@ -70,9 +71,7 @@ fun AddCardBody(
             Spacer(modifier = Modifier.padding(32.dp))
         }
     }
-    
 }
-
 
 @Preview
 @Preview(uiMode = UI_MODE_NIGHT_YES)

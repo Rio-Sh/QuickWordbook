@@ -1,3 +1,4 @@
+/* (C)2022 Rio-Sh */
 package com.io.github.rio_sh.quickwordbook.ui.cards
 
 import androidx.lifecycle.ViewModel
@@ -5,9 +6,9 @@ import androidx.lifecycle.viewModelScope
 import com.io.github.rio_sh.quickwordbook.data.DefaultRepository
 import com.io.github.rio_sh.quickwordbook.data.Word
 import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 data class CardsUiState(
     val isLoading: Boolean = false,
@@ -28,7 +29,14 @@ class CardsViewModel @Inject constructor(
 
         viewModelScope.launch {
             defaultRepository.observeAllWords()
-                .catch { _uiState.update { it.copy(isLoading = false, isWordsLoadingFailed = true) }  }
+                .catch {
+                    _uiState.update {
+                        it.copy(
+                            isLoading = false,
+                            isWordsLoadingFailed = true
+                        )
+                    }
+                }
                 .collect { words ->
                     _uiState.update { it.copy(words = words, isLoading = false) }
                 }
