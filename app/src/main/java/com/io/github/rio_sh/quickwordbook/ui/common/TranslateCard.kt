@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
+import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
@@ -42,6 +43,8 @@ fun TranslateCard(
     onDoneButtonClicked: () -> Unit,
     doneButtonText: @Composable () -> Unit,
 ) {
+    val localFocusManager = LocalFocusManager.current
+
     Surface(
         shape = Shapes.medium,
         color = MaterialTheme.colorScheme.secondaryContainer,
@@ -59,6 +62,7 @@ fun TranslateCard(
                 onSourceTextChanged = onSourceTextChanged,
                 onTargetTextChanged = onTargetTextChanged,
                 onTranslateText = onTranslateText,
+                localFocusManager = localFocusManager
             )
             Row(
                 modifier = Modifier
@@ -85,7 +89,10 @@ fun TranslateCard(
                     }
                 }
                 Button(
-                    onClick = { onDoneButtonClicked() },
+                    onClick = {
+                        localFocusManager.clearFocus()
+                        onDoneButtonClicked()
+                    },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.primary,
                         contentColor = MaterialTheme.colorScheme.onPrimary,
@@ -107,8 +114,8 @@ fun TranslateTextField(
     onSourceTextChanged: (String) -> Unit,
     onTargetTextChanged: (String) -> Unit,
     onTranslateText: () -> Unit,
+    localFocusManager: FocusManager
 ) {
-    val localFocusManager = LocalFocusManager.current
     Column(modifier = modifier) {
         TextField(
             value = sourceText,
@@ -159,6 +166,7 @@ fun TranslateTextField(
 @Composable
 fun TextFieldPrev() {
     QuickWordbookTheme {
+        val localFocusManager = LocalFocusManager.current
         Surface {
             TranslateTextField(
                 sourceText = "text",
@@ -167,6 +175,7 @@ fun TextFieldPrev() {
                 onSourceTextChanged = {},
                 onTargetTextChanged = {},
                 onTranslateText = {},
+                localFocusManager = localFocusManager
             )
         }
     }
