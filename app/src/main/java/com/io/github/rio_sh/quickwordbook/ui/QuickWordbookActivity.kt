@@ -8,6 +8,8 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.SideEffect
 import androidx.core.view.WindowCompat
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
+import com.io.github.rio_sh.quickwordbook.ui.theme.md_theme_dark_surfaceVariant
+import com.io.github.rio_sh.quickwordbook.ui.theme.md_theme_light_surfaceVariant
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
