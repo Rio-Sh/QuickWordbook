@@ -116,5 +116,6 @@ object Libs {
     object Test {
         const val assertj = "org.assertj:assertj-core:3.22.0"
         const val robolectric = "org.robolectric:robolectric:4.6"
+        const val okhttp = "com.squareup.okhttp3:mockwebserver:4.9.3"
     }
 }
