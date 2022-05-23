@@ -132,6 +132,7 @@ dependencies {
     kaptTest Libs.Hilt.compiler
     testImplementation Libs.Coroutines.test
     testImplementation Libs.Test.robolectric
+    testImplementation Libs.Test.okhttp
 
     debugImplementation Libs.AndroidX.Compose.uiTestManifest
 }
