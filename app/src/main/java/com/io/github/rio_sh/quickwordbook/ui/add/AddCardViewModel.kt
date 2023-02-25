@@ -1,6 +1,7 @@
 /* (C)2022 Rio-Sh */
 package com.io.github.rio_sh.quickwordbook.ui.add
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.io.github.rio_sh.quickwordbook.R
@@ -8,8 +9,9 @@ import com.io.github.rio_sh.quickwordbook.data.DefaultRepository
 import com.io.github.rio_sh.quickwordbook.data.Word
 import com.io.github.rio_sh.quickwordbook.network.Languages
 import com.io.github.rio_sh.quickwordbook.ui.common.ErrorMessage
+import com.io.github.rio_sh.quickwordbook.ui.common.identifyJapaneseOrNot
+import com.io.github.rio_sh.quickwordbook.ui.common.translateByMlkit
 import dagger.hilt.android.lifecycle.HiltViewModel
-import java.util.*
 import javax.inject.Inject
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
@@ -19,7 +21,7 @@ import kotlinx.coroutines.launch
  * @param sourceText
  * @param targetText
  * @param isTargetTextLoading
- * @param sourceLanguages
+ * @param sourceLanguage
  * @param targetLanguage
  * @param isSwitchChecked
  */
@@ -27,13 +29,14 @@ data class AddCardUiState(
     val sourceText: String = "",
     val targetText: String = "",
     val isTargetTextLoading: Boolean = false,
-    val sourceLanguages: Languages = Languages.ENGLISH,
+    val sourceLanguage: Languages = Languages.ENGLISH,
     val targetLanguage: Languages = Languages.JAPANESE,
     val isSwitchChecked: Boolean = false,
     val errorMessages: List<ErrorMessage> = emptyList(),
     val currentMessage: ErrorMessage = ErrorMessage(-1, R.string.empty_string)
 )
 
+private const val TAG = "AddCardViewModel"
 @HiltViewModel
 class AddCardViewModel @Inject constructor(
     private val defaultRepository: DefaultRepository
@@ -80,18 +83,38 @@ class AddCardViewModel @Inject constructor(
 
     fun changeTargetLanguage() {
         when (_uiState.value.targetLanguage) {
-            Languages.ENGLISH -> _uiState.update {
-                it.copy(
-                    sourceLanguages = Languages.ENGLISH,
-                    targetLanguage = Languages.JAPANESE
-                )
+            Languages.ENGLISH -> {
+                _uiState.update {
+                    it.copy(
+                        sourceLanguage = Languages.ENGLISH,
+                        targetLanguage = Languages.JAPANESE
+                    )
+                }
+                Log.d(TAG, "Change source Lang to English")
             }
-            Languages.JAPANESE -> _uiState.update {
-                it.copy(
-                    sourceLanguages = Languages.JAPANESE,
-                    targetLanguage = Languages.ENGLISH
-                )
+            Languages.JAPANESE -> {
+                _uiState.update {
+                    it.copy(
+                        sourceLanguage = Languages.JAPANESE,
+                        targetLanguage = Languages.ENGLISH
+                    )
+                }
+                Log.d(TAG, "Change source Lang to Japanese")
             }
+        }
+    }
+
+    private fun changeLangSettingsWhenIdentify(identifiedLanguageCode: String) {
+        if (!_uiState.value.isSwitchChecked
+            && identifiedLanguageCode == "ja") {
+            changeTargetLanguage()
+            toggleSwitch(!_uiState.value.isSwitchChecked)
+            Log.d(TAG, "uiState language toggled to on")
+        } else if (_uiState.value.isSwitchChecked
+            && identifiedLanguageCode == "und") {
+            changeTargetLanguage()
+            toggleSwitch(!_uiState.value.isSwitchChecked)
+            Log.d(TAG, "uiState language toggled to off")
         }
     }
 
@@ -112,40 +135,19 @@ class AddCardViewModel @Inject constructor(
         }
     }
 
-    // TODO add no internet connection exception handling
     /**
-     * Call GasApi using current source text state.
-     * If failed, add message to ui state.
+     * identify language and translate it by Mlkit
      */
     fun translateText() {
-        viewModelScope.launch {
-            runCatching {
-                _uiState.update { it.copy(isTargetTextLoading = true) }
-                defaultRepository.translateText(
-                    sourceText = _uiState.value.sourceText,
-                    sourceLanguage = _uiState.value.sourceLanguages,
-                    targetLanguages = _uiState.value.targetLanguage
-                )
-            }.onSuccess { response ->
-                if (response.body()!!.code == 400) {
-                    val errorMessages = _uiState.value.errorMessages + ErrorMessage(
-                        id = UUID.randomUUID().mostSignificantBits,
-                        stringId = R.string.bad_request
-                    )
-                    _uiState.update { it.copy(errorMessages = errorMessages) }
-                } else {
-                    val targetText = response.body()?.text ?: ""
-                    _uiState.update { it.copy(targetText = targetText) }
-                }
-            }.onFailure {
-                val errorMessages = _uiState.value.errorMessages + ErrorMessage(
-                    id = UUID.randomUUID().mostSignificantBits,
-                    stringId = R.string.sorry_something_wrong_cant_translate
-                )
-                _uiState.update { it.copy(errorMessages = errorMessages) }
-            }.also {
-                _uiState.update { it.copy(isTargetTextLoading = false) }
-            }
-        }
+        identifyJapaneseOrNot(
+            sourceText = _uiState.value.sourceText,
+            changeLangSettingsWhenIdentify = { changeLangSettingsWhenIdentify(it) }
+        )
+
+        translateByMlkit(
+            sourceLang = _uiState.value.sourceLanguage,
+            sourceText = _uiState.value.sourceText,
+            changeTargetText = { changeTargetText(it) }
+        )
     }
 }

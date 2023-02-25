@@ -135,4 +135,8 @@ dependencies {
     testImplementation Libs.Test.okhttp
 
     debugImplementation Libs.AndroidX.Compose.uiTestManifest
+
+    // TODO Replace Test library
+    implementation 'com.google.mlkit:language-id:17.0.4'
+    implementation 'com.google.mlkit:translate:17.0.1'
 }
