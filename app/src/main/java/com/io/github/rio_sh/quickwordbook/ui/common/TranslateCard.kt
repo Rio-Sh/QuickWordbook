@@ -37,6 +37,7 @@ fun TranslateCard(
     isSwitchChecked: Boolean,
     onSourceTextChanged: (String) -> Unit,
     onTargetTextChanged: (String) -> Unit,
+    onIdentifyText: () -> Unit,
     onTranslateText: () -> Unit,
     onTargetLanguageChanged: () -> Unit,
     onToggleSwitch: (Boolean) -> Unit,
@@ -61,6 +62,7 @@ fun TranslateCard(
                 isLoading = isTargetTextLoading,
                 onSourceTextChanged = onSourceTextChanged,
                 onTargetTextChanged = onTargetTextChanged,
+                onIdentifyText = onIdentifyText,
                 onTranslateText = onTranslateText,
                 localFocusManager = localFocusManager
             )
@@ -77,6 +79,7 @@ fun TranslateCard(
                         onCheckedChange = {
                             onTargetLanguageChanged()
                             onToggleSwitch(it)
+                            onTranslateText()
                         }
                     )
                     when (targetLanguage) {
@@ -113,6 +116,7 @@ fun TranslateTextField(
     isLoading: Boolean,
     onSourceTextChanged: (String) -> Unit,
     onTargetTextChanged: (String) -> Unit,
+    onIdentifyText: () -> Unit,
     onTranslateText: () -> Unit,
     localFocusManager: FocusManager
 ) {
@@ -121,6 +125,7 @@ fun TranslateTextField(
             value = sourceText,
             onValueChange = {
                 onSourceTextChanged(it)
+                onIdentifyText()
                 onTranslateText()
             },
             textStyle = MaterialTheme.typography.bodyMedium,
@@ -174,6 +179,7 @@ fun TextFieldPrev() {
                 isLoading = false,
                 onSourceTextChanged = {},
                 onTargetTextChanged = {},
+                onIdentifyText = {},
                 onTranslateText = {},
                 localFocusManager = localFocusManager
             )

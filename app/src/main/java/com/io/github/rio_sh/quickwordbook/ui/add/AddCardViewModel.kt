@@ -135,15 +135,17 @@ class AddCardViewModel @Inject constructor(
         }
     }
 
-    /**
-     * identify language and translate it by Mlkit
-     */
-    fun translateText() {
+    fun identifyText() {
         identifyJapaneseOrNot(
             sourceText = _uiState.value.sourceText,
             changeLangSettingsWhenIdentify = { changeLangSettingsWhenIdentify(it) }
         )
+    }
 
+    /**
+     * identify language and translate it by Mlkit
+     */
+    fun translateText() {
         translateByMlkit(
             sourceLang = _uiState.value.sourceLanguage,
             sourceText = _uiState.value.sourceText,

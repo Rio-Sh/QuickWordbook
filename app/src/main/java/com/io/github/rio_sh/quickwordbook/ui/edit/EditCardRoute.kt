@@ -17,6 +17,7 @@ fun EditCardRoute(
 
     EditCardBody(
         uiState = uiSate,
+        onIdentifyText = { editCardViewModel.identifyText() },
         onTranslateText = { editCardViewModel.translateText() },
         onSourceTextChanged = { editCardViewModel.changeSourceText(it) },
         onTargetTextChanged = { editCardViewModel.changeTargetText(it) },

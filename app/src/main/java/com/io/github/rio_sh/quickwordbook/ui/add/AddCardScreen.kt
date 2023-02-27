@@ -20,6 +20,7 @@ import com.io.github.rio_sh.quickwordbook.ui.theme.QuickWordbookTheme
 @Composable
 fun AddCardBody(
     uiState: AddCardUiState,
+    onIdentifyText: () -> Unit,
     onTranslateText: () -> Unit,
     onSourceTextChanged: (String) -> Unit,
     onTargetTextChanged: (String) -> Unit,
@@ -61,6 +62,7 @@ fun AddCardBody(
                 isSwitchChecked = uiState.isSwitchChecked,
                 onSourceTextChanged = onSourceTextChanged,
                 onTargetTextChanged = onTargetTextChanged,
+                onIdentifyText = onIdentifyText,
                 onTranslateText = onTranslateText,
                 onTargetLanguageChanged = onTargetLanguageChanged,
                 onToggleSwitch = onToggleSwitch,
@@ -80,6 +82,7 @@ fun AddCardScreenPreview() {
     QuickWordbookTheme {
         AddCardBody(
             uiState = AddCardUiState(),
+            onIdentifyText = {},
             onTranslateText = {},
             onSourceTextChanged = {},
             onTargetTextChanged = {},

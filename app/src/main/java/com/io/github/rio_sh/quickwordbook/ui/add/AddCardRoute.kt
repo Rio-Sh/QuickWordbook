@@ -15,6 +15,7 @@ fun AddCardRoute(
 
     AddCardBody(
         uiState = uiState,
+        onIdentifyText = { addCardViewModel.identifyText() },
         onTranslateText = { addCardViewModel.translateText() },
         onSourceTextChanged = { addCardViewModel.changeSourceText(it) },
         onTargetTextChanged = { addCardViewModel.changeTargetText(it) },
