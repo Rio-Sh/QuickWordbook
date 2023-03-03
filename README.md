@@ -18,8 +18,6 @@ To achieve separation of responsibility, QuickWordbook has two layer, UI layer a
   
 <!-- <img src="https://developer.android.com/topic/libraries/architecture/images/mad-arch-overview.png" width=60%>  -->
 
-QuickWordbook has two layers, UI layer and Data layer.  
-
 In the UI layer, the structure follows the Unidirectional Data Flow (UDF) architecture (UDF: https://developer.android.com/jetpack/guide/ui-layer#udf).  
 Each screen has a ViewModel that manages UI state and updates state by events from a Screen Composable.  
 
